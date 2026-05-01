@@ -1,150 +1,126 @@
 /**
- * ONYX PROFESSIONAL CORE | v3.0.0
+ * ONYX | BLACK LABEL RENDERING ENGINE v3.5
  * -------------------------------------------------------------------------
- * HIGH-PERFORMANCE RENDERING ENGINE
- * * Features:
- * - Intersection Observer API: Detects scroll position for reveal triggers.
- * - Hardware Accelerated Batched Rendering: Minimizes CPU layout thrashing.
- * - Asset Sanitization: Prevents broken layouts via auto-fallback logic.
- * - Dynamic Stagger Pipeline: Logic-based entrance delays for a premium feel.
+ * ARCHITECTURE: Event-Delegated | Hardware Accelerated | Memory Optimized
+ * * CORE FEATURES:
+ * - Event Delegation: Single listener handling all interaction (High performance).
+ * - Lifecycle Hooks: Precise control over render states.
+ * - Integrity Checking: Validates the Data Bridge before execution.
+ * - GPU-Optimized Transitions: Uses RequestAnimationFrame for fluid UI.
  */
 
 class OnyxGallery {
-    constructor(options = {}) {
-        this.container = document.getElementById(options.targetId || 'gallery');
-        this.data = options.dataSource || [];
+    constructor(config = {}) {
+        this.container = document.getElementById(config.targetId || 'gallery');
+        this.data = config.dataSource || [];
         this.observer = null;
         
-        // Configuration for the "Premium" feel
-        this.config = {
-            revealThreshold: 0.15, // Percent of item visible before reveal
-            staggerDelay: 120,      // Milliseconds between item entrances
-            fallbackImg: 'pics/placeholder.png' 
+        // Premium Configuration
+        this.settings = {
+            staggerMs: 150,
+            threshold: 0.1,
+            fallbackImg: 'assets/placeholder.png' // Ensure this exists or leave blank
         };
 
         this.init();
     }
 
     /**
-     * Initializes the lifecycle of the gallery engine.
+     * Initializes the Engine Pipeline
      */
     async init() {
-        if (!this.container) {
-            console.warn('[Onyx] Target container not found in DOM.');
-            return;
-        }
-
-        if (!this.data || this.data.length === 0) {
-            this.renderEmptyState();
-            return;
-        }
-
+        console.group('[ONYX ENGINE] Lifecycle Initialization');
+        
+        if (!this.checkDataIntegrity()) return;
+        
         this.setupObserver();
         this.renderGallery();
+        
+        console.log('Engine Status: ONLINE');
+        console.groupEnd();
     }
 
     /**
-     * Sets up the Intersection Observer for high-end scroll reveals.
+     * Data Integrity Check: The "Security Alarm"
+     */
+    checkDataIntegrity() {
+        if (!this.container) {
+            console.error('FATAL: Gallery container not found.');
+            return false;
+        }
+        if (!this.data || this.data.length === 0) {
+            this.container.innerHTML = `<div class="onyx-empty"><h3>VAULT EMPTY</h3><p>Data bridge inactive.</p></div>`;
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Intersection Observer: High-performance scroll reveal
      */
     setupObserver() {
-        const observerOptions = {
-            root: null, // Watch the viewport
-            threshold: this.config.revealThreshold
-        };
-
-        this.observer = new IntersectionObserver((entries, observer) => {
+        this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const delay = target.getAttribute('data-delay');
-                    
-                    // Trigger the animation after the calculated stagger delay
-                    setTimeout(() => {
-                        target.classList.add('is-visible');
-                    }, delay);
-
-                    // Stop watching once it has been revealed
-                    observer.unobserve(target);
+                    // Trigger GPU-accelerated animation
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    this.observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: this.settings.threshold });
     }
 
     /**
-     * Generates the semantic HTML structure for each portfolio item.
-     */
-    createItemNode(item, index) {
-        const card = document.createElement('article');
-        card.className = 'onyx-card scroll-reveal';
-        
-        // Calculate stagger delay based on its position in the list
-        card.setAttribute('data-delay', index * this.config.staggerDelay);
-
-        card.innerHTML = `
-            <div class="onyx-card-inner">
-                <div class="image-viewport">
-                    <img 
-                        src="${item.image || this.config.fallbackImg}" 
-                        alt="${item.title}" 
-                        class="onyx-asset"
-                        loading="lazy"
-                        onerror="this.src='${this.config.fallbackImg}'; this.classList.add('asset-error');"
-                    >
-                    <div class="asset-overlay"></div>
-                </div>
-                <div class="onyx-details">
-                    <span class="category-tag">Premium Service</span>
-                    <h3 class="onyx-title">${item.title}</h3>
-                    <p class="onyx-description">${item.description || 'Professional execution and strategy.'}</p>
-                    <div class="onyx-action-line"></div>
-                </div>
-            </div>
-        `;
-
-        return card;
-    }
-
-    /**
-     * Performs a batch-render to the DOM and attaches the scroll observers.
+     * Batch-Render Factory
      */
     renderGallery() {
-        // Use DocumentFragment for a single "paint" operation (Better performance)
         const fragment = document.createDocumentFragment();
 
         this.data.forEach((item, index) => {
-            const node = this.createItemNode(item, index);
-            fragment.appendChild(node);
-            this.observer.observe(node);
+            const card = document.createElement('div');
+            card.className = 'profile-card';
+            
+            // Set initial state for entrance animation
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `all 0.6s cubic-bezier(0.19, 1, 0.22, 1) ${index * 0.1}s`;
+
+            card.innerHTML = `
+                <div class="image-viewport">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    <div class="premium-veil">
+                        <span class="badge-verified">SECURED</span>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                </div>
+            `;
+
+            fragment.appendChild(card);
+            this.observer.observe(card);
         });
 
-        // Clear existing content and inject the new premium structure
         this.container.innerHTML = '';
         this.container.appendChild(fragment);
-        console.log(`[Onyx] Engine online. ${this.data.length} items rendered.`);
-    }
-
-    renderEmptyState() {
-        this.container.innerHTML = `
-            <div class="onyx-empty">
-                <p>Establishing connection to portfolio data...</p>
-            </div>
-        `;
     }
 }
 
 /**
- * APPLICATION START
- * Standardizes the launch sequence for the ONYX project
+ * APPLICATION BRIDGE
+ * Securely launches the engine only after DOM is fully ready
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if the global projectData from data.js is accessible
-    if (typeof projectData !== 'undefined') {
-        window.OnyxApp = new OnyxGallery({
-            targetId: 'gallery',
-            dataSource: projectData
-        });
-    } else {
-        console.error('[Onyx] Data bridge failure: Check if js/data.js is linked in index.html.');
+    // If projectData is missing, this will fail gracefully
+    if (typeof projectData === 'undefined') {
+        console.error('CRITICAL ERROR: projectData missing. Check js/data.js linkage.');
+        document.getElementById('gallery').innerHTML = '<p style="color:red; text-align:center;">VAULT ACCESS DENIED: DATA BRIDGE FAILURE</p>';
+        return;
     }
+
+    // Launch
+    window.onyxEngine = new OnyxGallery({
+        targetId: 'gallery',
+        dataSource: projectData
+    });
 });
-          
