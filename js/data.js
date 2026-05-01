@@ -1,163 +1,106 @@
 /**
- * =========================================================
- * ONYX | THE ARCHIVE DATABASE (ENCRYPTED ASSETS)
- * Version: 1.0.4
- * Description: Curated member profiles with verified metadata.
- * =========================================================
+ * =========================================================================
+ * ONYX | DATA REGISTRY v3.0
+ * -------------------------------------------------------------------------
+ * ARCHIVE: DIGITAL SOVEREIGNTY ASSETS
+ * STATUS: SECURED | ENCRYPTED | READY FOR DEPLOYMENT
+ * * DESCRIPTION:
+ * This file acts as the primary configuration object for the Onyx Engine.
+ * Each entry includes metadata for scalability, search indexing, and 
+ * high-fidelity rendering.
+ * * SCHEMA DEFINITION:
+ * - id: Unique identifier for the asset
+ * - image: Path to the visual source file
+ * - title: Display header for the UI
+ * - description: Contextual metadata for the user
+ * - category: Classification for future filtering modules
+ * - priority: Logic-based sorting (1 = Critical, 10 = Standard)
+ * =========================================================================
  */
 
-const ARCHIVE_PROFILES = [
+const projectData = [
     {
-        id: "ONYX-001",
-        name: "Amara",
-        age: 23,
-        location: "Maitama, Abuja",
-        bio: "A connoisseur of contemporary African art and high-fashion editorial. Amara seeks intellectual synergy and high-vibration social circles.",
+        id: "ONX-001",
         image: "pics/img1.png",
-        verified: true,
-        membershipTier: "Gold",
-        interests: ["Art Curation", "Wine Tasting", "Yachting"],
-        vettingDate: "Jan 2026",
-        compatibilityScore: 94
+        title: "QUANTUM INTERFACE",
+        description: "Mobile-first architectural framework for high-frequency trading dashboards.",
+        category: "FINTECH",
+        priority: 1
     },
     {
-        id: "ONYX-002",
-        name: "Chioma",
-        age: 25,
-        location: "Ikoyi, Lagos",
-        bio: "Architectural designer with a focus on sustainable luxury. Her lifestyle is defined by global travel and a preference for understated elegance.",
+        id: "ONX-002",
         image: "pics/img2.png",
-        verified: true,
-        membershipTier: "Platinum",
-        interests: ["Architecture", "Global Travel", "Investment"],
-        vettingDate: "Feb 2026",
-        compatibilityScore: 89
+        title: "ONYX CONCIERGE",
+        description: "Private boutique management system with automated lead generation protocols.",
+        category: "STRATEGY",
+        priority: 2
     },
     {
-        id: "ONYX-003",
-        name: "Zainab",
-        age: 22,
-        location: "Asokoro, Abuja",
-        bio: "Specializing in digital asset management and philanthropy. Zainab values privacy, discretion, and curated evening experiences.",
+        id: "ONX-003",
         image: "pics/img3.png",
-        verified: true,
-        membershipTier: "Gold",
-        interests: ["Tech", "Philanthropy", "Polo"],
-        vettingDate: "March 2026",
-        compatibilityScore: 91
+        title: "NEURAL NETWORK UI",
+        description: "Visualizer logic for complex data streams, designed for terminal-based displays.",
+        category: "VISUALIZATION",
+        priority: 3
     },
     {
-        id: "ONYX-004",
-        name: "Kemi",
-        age: 24,
-        location: "Victoria Island, Lagos",
-        bio: "Public relations strategist for international luxury brands. Kemi navigates the intersection of business and high-society networking.",
+        id: "ONX-004",
         image: "pics/img4.png",
-        verified: true,
-        membershipTier: "Diamond",
-        interests: ["Marketing", "Fashion", "Fine Dining"],
-        vettingDate: "March 2026",
-        compatibilityScore: 97
+        title: "AUTHORITY AUDIT",
+        description: "Strategic growth documentation for enterprise-level B2B positioning.",
+        category: "STRATEGY",
+        priority: 2
     },
     {
-        id: "ONYX-005",
-        name: "Tega",
-        age: 26,
-        location: "Lekki Phase 1, Lagos",
-        bio: "An independent film producer with a passion for storytelling and cinematic aesthetics. Seeking a partnership built on creative ambition.",
+        id: "ONX-005",
         image: "pics/img5.png",
-        verified: true,
-        membershipTier: "Gold",
-        interests: ["Cinema", "Photography", "Golf"],
-        vettingDate: "April 2026",
-        compatibilityScore: 85
+        title: "SOURCING ENGINE",
+        description: "Procurement mapping for international commodity distribution networks.",
+        category: "LOGIC",
+        priority: 4
     },
     {
-        id: "ONYX-006",
-        name: "Ify",
-        age: 23,
-        location: "Jabi, Abuja",
-        bio: "Master’s student in International Relations. Ify balances academic rigour with an appreciation for the city's most exclusive lounges.",
+        id: "ONX-006",
         image: "pics/img6.png",
-        verified: true,
-        membershipTier: "Platinum",
-        interests: ["Diplomacy", "Tennis", "Opera"],
-        vettingDate: "April 2026",
-        compatibilityScore: 92
+        title: "MOBILE UX REDESIGN",
+        description: "Viewport-interaction conflict resolution for high-traffic mobile applications.",
+        category: "OPTIMIZATION",
+        priority: 1
     },
     {
-        id: "ONYX-007",
-        name: "Nneka",
-        age: 27,
-        location: "Gra, Port Harcourt",
-        bio: "Energy sector consultant. Nneka’s presence is commanding yet refined, focusing on long-term legacy and lifestyle optimization.",
+        id: "ONX-007",
         image: "pics/img7.png",
-        verified: true,
-        membershipTier: "Diamond",
-        interests: ["Energy", "Equestrian", "Real Estate"],
-        vettingDate: "April 2026",
-        compatibilityScore: 98
+        title: "GITHUB AUTHORITY",
+        description: "Sales engine integration for developer portfolios to capture lead traffic.",
+        category: "STRATEGY",
+        priority: 3
     },
     {
-        id: "ONYX-008",
-        name: "Sade",
-        age: 21,
-        location: "Ikeja, Lagos",
-        bio: "Emerging fashion model and wellness advocate. Sade represents the new era of Lagosian beauty—vibrant, healthy, and focused.",
+        id: "ONX-008",
         image: "pics/img8.png",
-        verified: true,
-        membershipTier: "Gold",
-        interests: ["Fitness", "Modeling", "Skincare"],
-        vettingDate: "May 2026",
-        compatibilityScore: 88
+        title: "SONIC VISUALIZER",
+        description: "Interactive music visualizer leveraging dynamic DOM manipulation.",
+        category: "FRONTEND",
+        priority: 5
     },
     {
-        id: "ONYX-009",
-        name: "Halima",
-        age: 24,
-        location: "Kano / Abuja",
-        bio: "Heritage-focused entrepreneur. Halima combines traditional values with a modern business mindset, seeking a balance of both worlds.",
+        id: "ONX-009",
         image: "pics/img9.png",
-        verified: true,
-        membershipTier: "Platinum",
-        interests: ["Textiles", "History", "Business"],
-        vettingDate: "May 2026",
-        compatibilityScore: 93
+        title: "DERMA PROTOCOL",
+        description: "Algorithm-based routine layering for specialized dermatological needs.",
+        category: "CONSUMER",
+        priority: 5
     },
     {
-        id: "ONYX-010",
-        name: "Ese",
-        age: 25,
-        location: "Benin City / Lagos",
-        bio: "A legal mind with a penchant for high-stakes negotiation. Ese enjoys the finer things in life, from bespoke tailoring to private tastings.",
+        id: "ONX-010",
         image: "pics/img10.png",
-        verified: true,
-        membershipTier: "Diamond",
-        interests: ["Law", "Bespoke Fashion", "Jazz"],
-        vettingDate: "May 2026",
-        compatibilityScore: 96
+        title: "AFROBEATS ANALYTICS",
+        description: "Twitter growth engine tracking engagement trends for music industry icons.",
+        category: "ANALYTICS",
+        priority: 4
     }
 ];
 
-/**
- * --- DATABASE UTILITIES ---
- * These functions allow the app to interact with the archive
- */
-
-const ArchiveManager = {
-    // Fetches all profiles
-    getAllMembers: () => ARCHIVE_PROFILES,
-    
-    // Fetches a single member by their ID
-    getMemberById: (id) => ARCHIVE_PROFILES.find(member => member.id === id),
-    
-    // Simulates a "Matching Algorithm" based on the user's name or city
-    getTopMatches: () => {
-        // Returns the Diamond tier members first (for premium feel)
-        return [...ARCHIVE_PROFILES].sort((a, b) => b.compatibilityScore - a.compatibilityScore);
-    }
-};
-
-// Prevent the data from being accidentally modified by other scripts
-Object.freeze(ARCHIVE_PROFILES);
-
+// HEARTBEAT CHECK
+console.log(`[ONYX ENGINE] Data Registry Loaded: ${projectData.length} records active.`);
+            
