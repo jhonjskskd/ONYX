@@ -9,165 +9,231 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <style>
-        /* Page-Specific Premium Overrides */
+        :root {
+            --onyx-gold: #c5a059;
+            --onyx-dark: #030303;
+            --text-secondary: rgba(255, 255, 255, 0.5);
+        }
+
         body {
-            overflow: hidden; /* Prevents scroll during onboarding */
-            background: radial-gradient(circle at center, #0a0a0a 0%, #030303 100%);
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .fade-in-intro {
-            animation: fadeIn 2s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Sophisticated Input Focus Effect */
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 40px;
+        /* Premium Intro Animation */
+        .app-container {
             width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            text-align: center;
+            animation: onyxReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
-        .input-label {
-            position: absolute;
-            top: -12px;
-            left: 0;
-            font-size: 0.6rem;
-            color: var(--onyx-gold);
-            letter-spacing: 2px;
+        @keyframes onyxReveal {
+            from { opacity: 0; transform: scale(0.98) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            letter-spacing: 12px;
+            margin: 0;
+            background: linear-gradient(to bottom, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            opacity: 0.7;
+            color: var(--onyx-gold);
+            margin-top: 10px;
+            opacity: 0.8;
         }
 
-        /* The Live Vetting Terminal Look */
+        /* Luxury Input Styling */
+        #form-container { margin-top: 60px; }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: border-color 0.4s;
+        }
+
+        .input-group:focus-within { border-color: var(--onyx-gold); }
+
+        .input-group label {
+            display: block;
+            text-align: left;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--onyx-gold);
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        select option { background: #111; color: #fff; }
+
+        .btn-onyx {
+            background: transparent;
+            border: 1px solid var(--onyx-gold);
+            color: var(--onyx-gold);
+            padding: 18px 40px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 20px;
+        }
+
+        .btn-onyx:hover {
+            background: var(--onyx-gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Vetting Terminal UI */
         #vetting-terminal {
             display: none;
             text-align: left;
-            padding: 20px;
             background: rgba(255,255,255,0.02);
-            border-radius: 8px;
-            border: 1px solid rgba(197, 160, 89, 0.1);
+            padding: 30px;
+            border-radius: 4px;
+            font-family: monospace;
+            border-left: 2px solid var(--onyx-gold);
         }
 
-        .terminal-line {
-            font-family: 'Inter', monospace;
-            font-size: 0.7rem;
+        .terminal-row {
+            font-size: 0.65rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s ease;
         }
 
-        .terminal-line.active { color: var(--onyx-gold); }
-        
-        .status-dot {
-            width: 4px;
-            height: 4px;
-            background: var(--onyx-gold);
-            border-radius: 50%;
-            display: inline-block;
+        .terminal-row.active { opacity: 1; transform: translateX(0); }
+        .terminal-row.success { color: var(--onyx-gold); }
+
+        .dot { height: 3px; width: 3px; background: var(--onyx-gold); border-radius: 50%; margin-right: 15px; }
+
+        .encryption-footer {
+            position: fixed;
+            bottom: 40px;
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.2);
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container fade-in-intro" style="justify-content: center;">
-        
-        <header style="text-align: center; margin-bottom: 60px;">
-            <div style="font-style: italic; color: var(--onyx-gold); font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 10px;">Est. 2026</div>
+    <div class="app-container">
+        <header>
+            <div style="color: var(--onyx-gold); font-size: 0.6rem; letter-spacing: 4px; margin-bottom: 15px;">PRIVÉ</div>
             <h1>ONYX</h1>
-            <div class="subtitle">Concierge Archive Access</div>
+            <div class="subtitle">Digital Sovereignty Archive</div>
         </header>
 
         <div id="form-container">
-            <p style="text-align: center; margin-bottom: 40px; font-style: italic; color: #666;">
-                Entry is strictly by credential verification only.
-            </p>
-
             <form id="onyx-onboarding">
-                <div class="input-wrapper">
-                    <span class="input-label">Identity</span>
-                    <input type="text" id="user-name" placeholder="FULL LEGAL NAME" required autocomplete="off">
+                <div class="input-group">
+                    <label>Designation</label>
+                    <input type="text" id="user-name" placeholder="ENTER LEGAL IDENTITY" required autocomplete="off">
                 </div>
 
-                <div class="input-wrapper">
-                    <span class="input-label">Location</span>
-                    <input type="text" id="user-city" placeholder="CURRENT CITY (E.G. ABUJA)" required autocomplete="off">
+                <div class="input-group">
+                    <label>Node Location</label>
+                    <input type="text" id="user-city" placeholder="CURRENT METROPOLIS" required autocomplete="off">
                 </div>
 
-                <div class="input-wrapper">
-                    <span class="input-label">Intention</span>
+                <div class="input-group">
+                    <label>Clearance Level</label>
                     <select id="user-intent" required>
-                        <option value="" disabled selected>SELECT PATHWAY</option>
-                        <option value="elite">Elite Networking</option>
-                        <option value="luxury">Private Connections</option>
-                        <option value="curated">Curated Social Circle</option>
+                        <option value="" disabled selected>SELECT ACCESS TIER</option>
+                        <option value="obsidian">Obsidian Networking</option>
+                        <option value="ivory">Ivory Luxury Concierge</option>
+                        <option value="gold">Gold Curated Circle</option>
                     </select>
                 </div>
 
-                <button type="submit" class="btn-gold" id="action-btn">
-                    Initialize Vetting
-                </button>
+                <button type="submit" class="btn-onyx">Initialize Security Protocol</button>
             </form>
         </div>
 
         <div id="vetting-terminal">
-            <div class="terminal-line" id="line-1"><span class="status-dot"></span> Establishing Secure Link...</div>
-            <div class="terminal-line" id="line-2"><span class="status-dot"></span> Authenticating Identity...</div>
-            <div class="terminal-line" id="line-3"><span class="status-dot"></span> Cross-referencing Social Records...</div>
-            <div class="terminal-line" id="line-4"><span class="status-dot"></span> Granting Provisional Archive Access...</div>
-            
-            <div class="loader-bar" style="margin-top: 30px;"></div>
+            <div class="terminal-row" id="t1"><div class="dot"></div> Bypassing Standard Firewalls...</div>
+            <div class="terminal-row" id="t2"><div class="dot"></div> Validating Geographic Coordinates...</div>
+            <div class="terminal-row" id="t3"><div class="dot"></div> Synchronizing Biometric Profiles...</div>
+            <div class="terminal-row" id="t4"><div class="dot"></div> Compiling Private Archive Access...</div>
+            <div class="terminal-row" id="t5"><div class="dot"></div> ACCESS GRANTED. WELCOME TO ONYX.</div>
         </div>
-
-        <footer style="position: absolute; bottom: 30px; left: 0; width: 100%; text-align: center; opacity: 0.4;">
-            <p style="font-size: 0.6rem; letter-spacing: 2px;">SECURE 256-BIT ENCRYPTION ACTIVE</p>
-        </footer>
-
     </div>
+
+    <div class="encryption-footer">256-BIT QUANTUM ENCRYPTION ACTIVE</div>
 
     <script>
         document.getElementById('onyx-onboarding').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Capture and persist data
+            // Local Storage Persistence
             const name = document.getElementById('user-name').value;
-            const city = document.getElementById('user-city').value;
-            localStorage.setItem('onyx_user', name);
-            localStorage.setItem('onyx_city', city);
+            localStorage.setItem('onyx_member', name);
             
-            // Transition UI to "Vetting Mode"
+            // Interface Transition
             document.getElementById('form-container').style.display = 'none';
-            const terminal = document.getElementById('vetting-terminal');
-            terminal.style.display = 'block';
+            document.getElementById('vetting-terminal').style.display = 'block';
 
-            // Sequence of fake "verification" steps for prestige effect
-            const lines = [
-                { id: 'line-1', delay: 800 },
-                { id: 'line-2', delay: 1800 },
-                { id: 'line-3', delay: 3000 },
-                { id: 'line-4', delay: 4200 }
+            const sequence = [
+                { id: 't1', wait: 600 },
+                { id: 't2', wait: 1400 },
+                { id: 't3', wait: 2400 },
+                { id: 't4', wait: 3400 },
+                { id: 't5', wait: 4400 }
             ];
 
-            lines.forEach(line => {
+            sequence.forEach(step => {
                 setTimeout(() => {
-                    const el = document.getElementById(line.id);
+                    const el = document.getElementById(step.id);
                     el.classList.add('active');
-                    el.style.fontWeight = 'bold';
-                }, line.delay);
+                    if(step.id === 't5') el.classList.add('success');
+                }, step.wait);
             });
 
-            // Final Redirect
+            // Final Redirection to the Gallery Page
             setTimeout(() => {
                 window.location.href = 'explore.html';
-            }, 5500);
+            }, 6000);
         });
     </script>
-
 </body>
-  </html>
-                      
+                        </html>
+                                            
