@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ONYX | Private Membership Invitation</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Page-Specific Premium Overrides */
+        body {
+            overflow: hidden; /* Prevents scroll during onboarding */
+            background: radial-gradient(circle at center, #0a0a0a 0%, #030303 100%);
+        }
+
+        .fade-in-intro {
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sophisticated Input Focus Effect */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .input-label {
+            position: absolute;
+            top: -12px;
+            left: 0;
+            font-size: 0.6rem;
+            color: var(--onyx-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* The Live Vetting Terminal Look */
+        #vetting-terminal {
+            display: none;
+            text-align: left;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .terminal-line {
+            font-family: 'Inter', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-line.active { color: var(--onyx-gold); }
+        
+        .status-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--onyx-gold);
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container fade-in-intro" style="justify-content: center;">
+        
+        <header style="text-align: center; margin-bottom: 60px;">
+            <div style="font-style: italic; color: var(--onyx-gold); font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 10px;">Est. 2026</div>
+            <h1>ONYX</h1>
+            <div class="subtitle">Concierge Archive Access</div>
+        </header>
+
+        <div id="form-container">
+            <p style="text-align: center; margin-bottom: 40px; font-style: italic; color: #666;">
+                Entry is strictly by credential verification only.
+            </p>
+
+            <form id="onyx-onboarding">
+                <div class="input-wrapper">
+                    <span class="input-label">Identity</span>
+                    <input type="text" id="user-name" placeholder="FULL LEGAL NAME" required autocomplete="off">
+                </div>
+
+                <div class="input-wrapper">
+                    <span class="input-label">Location</span>
+                    <input type="text" id="user-city" placeholder="CURRENT CITY (E.G. ABUJA)" required autocomplete="off">
+                </div>
+
+                <div class="input-wrapper">
+                    <span class="input-label">Intention</span>
+                    <select id="user-intent" required>
+                        <option value="" disabled selected>SELECT PATHWAY</option>
+                        <option value="elite">Elite Networking</option>
+                        <option value="luxury">Private Connections</option>
+                        <option value="curated">Curated Social Circle</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-gold" id="action-btn">
+                    Initialize Vetting
+                </button>
+            </form>
+        </div>
+
+        <div id="vetting-terminal">
+            <div class="terminal-line" id="line-1"><span class="status-dot"></span> Establishing Secure Link...</div>
+            <div class="terminal-line" id="line-2"><span class="status-dot"></span> Authenticating Identity...</div>
+            <div class="terminal-line" id="line-3"><span class="status-dot"></span> Cross-referencing Social Records...</div>
+            <div class="terminal-line" id="line-4"><span class="status-dot"></span> Granting Provisional Archive Access...</div>
+            
+            <div class="loader-bar" style="margin-top: 30px;"></div>
+        </div>
+
+        <footer style="position: absolute; bottom: 30px; left: 0; width: 100%; text-align: center; opacity: 0.4;">
+            <p style="font-size: 0.6rem; letter-spacing: 2px;">SECURE 256-BIT ENCRYPTION ACTIVE</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('onyx-onboarding').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Capture and persist data
+            const name = document.getElementById('user-name').value;
+            const city = document.getElementById('user-city').value;
+            localStorage.setItem('onyx_user', name);
+            localStorage.setItem('onyx_city', city);
+            
+            // Transition UI to "Vetting Mode"
+            document.getElementById('form-container').style.display = 'none';
+            const terminal = document.getElementById('vetting-terminal');
+            terminal.style.display = 'block';
+
+            // Sequence of fake "verification" steps for prestige effect
+            const lines = [
+                { id: 'line-1', delay: 800 },
+                { id: 'line-2', delay: 1800 },
+                { id: 'line-3', delay: 3000 },
+                { id: 'line-4', delay: 4200 }
+            ];
+
+            lines.forEach(line => {
+                setTimeout(() => {
+                    const el = document.getElementById(line.id);
+                    el.classList.add('active');
+                    el.style.fontWeight = 'bold';
+                }, line.delay);
+            });
+
+            // Final Redirect
+            setTimeout(() => {
+                window.location.href = 'explore.html';
+            }, 5500);
+        });
+    </script>
+
+</body>
+  </html>
+                      
