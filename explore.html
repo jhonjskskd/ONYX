@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ONYX | PRIVATE ARCHIVE ACCESS</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <meta name="description" content="Onyx Concierge Engine - Private Archive Interface">
+    <meta name="theme-color" content="#030303">
+</head>
+<body>
+
+    <nav class="app-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <a href="index.html" style="text-decoration: none; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">&larr; Back to Terminal</a>
+            <span style="color: var(--onyx-gold); font-size: 0.6rem; letter-spacing: 2px;">ONLINE</span>
+        </div>
+    </nav>
+
+    <header class="app-container">
+        <h1>THE VAULT</h1>
+        <p class="subtitle">PREMIUM DIGITAL ASSETS v2.0</p>
+    </header>
+
+    <main class="app-container">
+        
+        <div id="loader" class="loader-bar" style="margin-bottom: 40px;"></div>
+
+        <section id="gallery" class="gallery-grid">
+            </section>
+
+        <div id="empty-state" style="display: none; text-align: center; color: var(--text-muted); padding: 40px;">
+            <p>Vault Access Denied or Empty.</p>
+        </div>
+    </main>
+
+    <footer class="app-container" style="padding-top: 80px; padding-bottom: 40px; text-align: center;">
+        <p style="font-size: 0.6rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;">
+            &copy; 2026 ONYX DIGITAL CONCIERGE. ALL RIGHTS RESERVED.
+        </p>
+        <div style="margin-top: 10px;">
+            <a href="#" style="color: var(--onyx-gold); font-size: 0.6rem; text-decoration: none;">SECURITY PROTOCOLS</a>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Initialization Check
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('gallery');
+            const loader = document.getElementById('loader');
+            
+            // Artificial delay to mimic secure data retrieval
+            setTimeout(() => {
+                if(gallery.children.length === 0) {
+                    loader.style.display = 'none';
+                    document.getElementById('empty-state').style.display = 'block';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+
