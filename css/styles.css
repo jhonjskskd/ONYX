@@ -1,0 +1,321 @@
+/*
+  =========================================================
+  ONYX | LUXURY DIGITAL CONCIERGE ENGINE
+  Version: 1.0.0
+  Architecture: Mobile-First
+  =========================================================
+*/
+
+/* --- 1. CORE VARIABLES & TOKENS --- */
+:root {
+    /* Color Palette */
+    --onyx-bg: #030303;
+    --onyx-surface: #0a0a0a;
+    --onyx-surface-light: #111111;
+    --onyx-border: #1f1f1f;
+    --onyx-gold: #c5a059;
+    --onyx-gold-muted: rgba(197, 160, 89, 0.3);
+    
+    /* Typography Colors */
+    --text-primary: #f0f0f0;
+    --text-secondary: #888888;
+    --text-error: #cc3333;
+
+    /* Animations & Timings */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Z-Index Layers */
+    --z-base: 1;
+    --z-veil: 10;
+    --z-modal: 100;
+    --z-toast: 1000;
+}
+
+/* --- 2. RESET & BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
+}
+
+body {
+    background-color: var(--onyx-bg);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- 3. LAYOUT & CONTAINERS --- */
+.app-container {
+    width: 100%;
+    max-width: 400px; /* Forces the premium app look on desktop */
+    min-height: 100vh;
+    position: relative;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 4. TYPOGRAPHY --- */
+h1, h2, h3, .editorial-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--onyx-gold);
+    margin-bottom: 40px;
+}
+
+p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* --- 5. FORMS & INPUTS --- */
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+input, select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--onyx-border);
+    color: var(--text-primary);
+    font-size: 1rem;
+    padding: 12px 0;
+    font-family: 'Inter', sans-serif;
+    transition: var(--transition-fast);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-bottom: 1px solid var(--onyx-gold);
+}
+
+input::placeholder {
+    color: #444;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+select {
+    color: var(--text-secondary);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 10px auto;
+}
+
+/* --- 6. BUTTONS --- */
+.btn-gold {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--onyx-gold);
+    color: var(--onyx-gold);
+    padding: 16px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-gold:active {
+    background: var(--onyx-gold-muted);
+    transform: scale(0.98);
+}
+
+/* --- 7. THE VAULT & CARDS (GLASSMORPHISM) --- */
+.vault-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 80px;
+}
+
+.profile-card {
+    background: var(--onyx-surface);
+    border: 1px solid var(--onyx-border);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    animation: fadeUp 0.6s ease backwards;
+}
+
+.image-container {
+    width: 100%;
+    height: 380px; /* Fixed height for uniformity */
+    position: relative;
+    background-color: var(--onyx-surface-light);
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* The Premium Veil Effect */
+.premium-veil {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-veil);
+}
+
+.profile-info {
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: calc(var(--z-veil) + 1);
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+}
+
+.badge-verified {
+    background: var(--onyx-gold);
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* --- 8. PAYMENT TERMINAL --- */
+.payment-terminal {
+    background: var(--onyx-surface);
+    border: 1px solid var(--onyx-border);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.account-box {
+    background: var(--onyx-bg);
+    border: 1px dashed var(--onyx-gold);
+    padding: 20px;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition-fast);
+}
+
+.account-box:active {
+    background: var(--onyx-gold-muted);
+}
+
+.account-number {
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--onyx-gold);
+    letter-spacing: 3px;
+    display: block;
+}
+
+/* --- 9. ANIMATIONS & LOADERS --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGold {
+    0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+}
+
+.loader-bar {
+    width: 100%;
+    height: 2px;
+    background: var(--onyx-border);
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.loader-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    background: var(--onyx-gold);
+    animation: loading 2s infinite ease-in-out;
+}
+
+@keyframes loading {
+    0% { left: -30%; }
+    100% { left: 100%; }
+}
+
+/* --- 10. TOAST NOTIFICATIONS --- */
+.toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--onyx-gold);
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    z-index: var(--z-toast);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
