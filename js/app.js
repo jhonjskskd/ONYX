@@ -3,6 +3,7 @@
  * 🧠 APP.JS - THE CENTRAL CORE PROCESSING ROUTER & ENGINE
  * ==========================================================================
  * Connects the HTML layout views with data modules and handles state.
+ * Patched with Event Delegation safety parameters to handle mobile touch.
  */
 
 import classmatesDatabase from './classmates.js';
@@ -74,30 +75,38 @@ function switchView(targetScreenKey) {
 }
 
 function initEventListeners() {
-    // Gender buttons selector logic
+    // 🧬 FIXED: Gender buttons selector logic with deep element targeting for mobile
     DOM.inputs.genderBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            const targetBtn = e.target.closest('.gender-btn');
+            if (!targetBtn) return;
+            
             DOM.inputs.genderBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            AppState.user.gender = btn.getAttribute('data-gender');
+            targetBtn.classList.add('active');
+            AppState.user.gender = targetBtn.getAttribute('data-gender');
+            console.log("Gender selected and locked:", AppState.user.gender);
         });
     });
 
-    // Login Submission Gate Click
+    // 🔑 Login Submission Gate Click
     DOM.btnEnter.addEventListener('click', handleGatewaySubmission);
 
-    // Level Cards Selector Click
+    // Level Cards Selector Click with mobile mitigation
     document.querySelectorAll('.level-card').forEach(card => {
-        card.addEventListener('click', () => {
-            AppState.selectedLevel = parseInt(card.getAttribute('data-level'));
+        card.addEventListener('click', (e) => {
+            const targetCard = e.target.closest('.level-card');
+            if (!targetCard) return;
+            AppState.selectedLevel = parseInt(targetCard.getAttribute('data-level'));
             runTerminalVerificationSequence();
         });
     });
 
-    // Dashboard App Module Triggers
+    // Dashboard App Module Triggers with mobile mitigation
     DOM.modules.forEach(mod => {
-        mod.addEventListener('click', () => {
-            AppState.activeModule = mod.getAttribute('data-module');
+        mod.addEventListener('click', (e) => {
+            const targetMod = e.target.closest('.module-card');
+            if (!targetMod) return;
+            AppState.activeModule = targetMod.getAttribute('data-module');
             launchGameplaySequence();
         });
     });
@@ -447,5 +456,5 @@ function processAnswerSelection(chosenOutputString) {
     document.getElementById('celeb-subtext').textContent = victoryPhrases[Math.floor(Math.random() * victoryPhrases.length)];
     
     DOM.celebOverlay.classList.remove('hidden');
-}
-
+                }
+                                                           
