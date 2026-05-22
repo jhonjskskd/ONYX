@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SSS3 SILHOUETTE HUB: CLASS OF 2026</title>
+    <!-- Link to premium CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for sleek dashboard icon graphics -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Main Game Container -->
+    <div class="game-wrapper">
+        
+        <!-- 🛡️ SECURITY BANNER OVERLAY (Displayed across critical entry gates) -->
+        <div id="global-security-badge" class="security-badge hidden">
+            <i class="fa-solid fa-shield-halved secure-icon"></i>
+            <span>AES-256 BIT END-TO-END ENCRYPTED PROTOCOL (ZERO-KNOWLEDGE TUNNEL)</span>
+        </div>
+
+        <!-- ==========================================
+             SCREEN 1: THE PERSONALIZATION GATE (LOGIN)
+             ========================================== -->
+        <section id="screen-login" class="game-screen">
+            <div class="logo-area">
+                <h1 class="glitch-title">THE SSS3 SILHOUETTE HUB</h1>
+                <p class="subtitle">CLASS OF 2026 OFFICIAL VALUATION VAULT</p>
+            </div>
+            
+            <div class="card-glass login-card">
+                <p class="gate-warning">
+                    <i class="fa-solid fa-user-secret"></i> 
+                    Welcome, Senior. Before you enter the vault and unlock the graduation tea, verify your credentials. No fake profiles allowed.
+                </p>
+                
+                <div class="input-group">
+                    <label for="user-name">Your Full Name / Real Nickname</label>
+                    <input type="text" id="user-name" placeholder="e.g., Davies Brown, Pelumi, Lexus..." autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="user-class">Select Your Classroom</label>
+                    <select id="user-class">
+                        <option value="" disabled selected>-- Click to Select Class --</option>
+                        <option value="SSS3-A">SSS3-A (Elite Ballers)</option>
+                        <option value="SSS3-B">SSS3-B (The Tailor Crew)</option>
+                        <option value="SSS3-C">SSS3-C (The Royalty Set)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Select Gender</label>
+                    <div class="gender-selector">
+                        <button type="button" class="gender-btn dynamic-tap" data-gender="boy">
+                            <i class="fa-solid fa-mars"></i> Boy 👦
+                        </button>
+                        <button type="button" class="gender-btn dynamic-tap" data-gender="girl">
+                            <i class="fa-solid fa-venus"></i> Girl 👧
+                        </button>
+                    </div>
+                </div>
+
+                <button id="btn-enter-vault" class="btn-primary neon-pulse-purple">
+                    ENTER THE VAULT <i class="fa-solid fa-door-open"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SCREEN 2: FAKE SECURITY VERIFICATION INTERFACE
+             ========================================== -->
+        <section id="screen-loading" class="game-screen hidden">
+            <div class="loader-box">
+                <div class="spinner-neon"></div>
+                <h3 id="loading-status">ESTABLISHING SECURE PROTOCOL...</h3>
+                <div class="terminal-logs" id="terminal-logs">
+                    <!-- Fake system script strings injected dynamically here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SCREEN 3: APOCALYPSE LEVEL SELECTOR (SPICE FILTER)
+             ========================================== -->
+        <section id="screen-level" class="game-screen hidden">
+            <h2 class="section-title text-gold">CHOOSE SPICE LEVEL</h2>
+            <p class="section-desc">Filter the deck. The higher the track, the rougher the gossip.</p>
+            
+            <div class="level-stack">
+                <!-- Level 1 Card -->
+                <div class="level-card card-glass lvl-safe dynamic-tap" data-level="1">
+                    <div class="level-header">
+                        <span class="indicator green"></span>
+                        <h4>LEVEL 1: Pure Academic</h4>
+                    </div>
+                    <p class="level-vibe">"The Principal's Eye" — 100% safe. Covers funny teacher roasts, morning gate lateness, and general school jokes.</p>
+                </div>
+
+                <!-- Level 2 Card -->
+                <div class="level-card card-glass lvl-medium dynamic-tap" data-level="2">
+                    <div class="level-header">
+                        <span class="indicator yellow"></span>
+                        <h4>LEVEL 2: Back Row Tattle</h4>
+                    </div>
+                    <p class="level-vibe">"The Class Drama" — Mildly chaotic. Unlocks nicknames, 75k clothing bankruptcy stories, and hilarious boardroom roasts.</p>
+                </div>
+
+                <!-- Level 3 Card -->
+                <div class="level-card card-glass lvl-danger dynamic-tap" data-level="3">
+                    <div class="level-header">
+                        <span class="indicator red flash"></span>
+                        <h4>LEVEL 3: Absolute Danger</h4>
+                    </div>
+                    <p class="level-vibe">"The Secret Tear-Sheet" — Maximum chaos. Unlocks anonymous relationship tracking, silent crush matching, and wild WhatsApp group dares.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SCREEN 4: THE SSS3 PARTY DASHBOARD (MAIN HUB)
+             ========================================= -->
+        <section id="screen-dashboard" class="game-screen hidden">
+            <!-- Header Identity Card -->
+            <header class="user-profile-bar card-glass">
+                <div class="prof-info">
+                    <h3 id="dash-welcome">Welcome Back, Senior 🦅</h3>
+                    <span id="dash-status" class="badge-status">Status: Elite Operator</span>
+                </div>
+                <div class="prof-streak">
+                    <span class="streak-label">SAVAGE STREAK</span>
+                    <span id="dash-streak-val" class="streak-num">🔥 0</span>
+                </div>
+            </header>
+
+            <!-- ⚡ HYPER-ACTIVE LIVE SOCIAL ACTIVITY TICKER -->
+            <div class="live-ticker-container card-glass">
+                <div class="ticker-header">
+                    <span class="live-dot"></span> LIVE SSS3 HUB FEED
+                </div>
+                <div class="ticker-window">
+                    <div id="live-activity-text" class="ticker-text">Awaiting network pulses...</div>
+                </div>
+            </div>
+
+            <!-- The Game Module Array -->
+            <div class="modules-grid">
+                <div class="module-card card-glass dynamic-tap" data-module="voting">
+                    <div class="mod-icon purple"><i class="fa-solid fa-square-poll-horizontal"></i></div>
+                    <div class="mod-details">
+                        <h5>PART 1: STORY VOTING</h5>
+                        <p>Who did it best? Shuffle long-form class drama scenarios.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass dynamic-tap" data-module="trivia">
+                    <div class="mod-icon gold"><i class="fa-solid fa-brain"></i></div>
+                    <div class="mod-details">
+                        <h5>PART 2: IDENTITY TRIVIA</h5>
+                        <p>Who said 'O boy turn belle'? Test your back row memory.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass dynamic-tap" data-module="wyr">
+                    <div class="mod-icon blue"><i class="fa-solid fa-code-compare"></i></div>
+                    <div class="mod-details">
+                        <h5>PART 3: WOULD YOU RATHER</h5>
+                        <p>Split-screen debates. Ugly wedding chants vs crush exposure.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass dynamic-tap" data-module="dare">
+                    <div class="mod-icon red"><i class="fa-solid fa-dice"></i></div>
+                    <div class="mod-details">
+                        <h5>PART 4: TRUTH OR DARE</h5>
+                        <p>The Savage Deck. Chaotic real-life mobile tasks with panic windows.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass dynamic-tap" data-module="legacy">
+                    <div class="mod-icon cyan"><i class="fa-solid fa-pen-nib"></i></div>
+                    <div class="mod-details">
+                        <h5>PART 5: LEGACY VAULT</h5>
+                        <p>Drop your parting deep confessions or secret crush lockets securely.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SCREEN 5: THE CORE GAMEPLAY ARENA
+             ========================================== -->
+        <section id="screen-gameplay" class="game-screen hidden">
+            <!-- Panic Timer Countdown Track Bar -->
+            <div id="timer-bar-wrapper" class="timer-wrapper">
+                <div id="game-timer-bar" class="timer-bar-fill"></div>
+            </div>
+
+            <div class="gameplay-header">
+                <button id="btn-game-exit" class="btn-exit"><i class="fa-solid fa-arrow-left-long"></i> Run Away</button>
+                <span id="game-round-title" class="round-title">STORY VOTING</span>
+            </div>
+
+            <!-- The Dynamic Question Presentation Display -->
+            <div class="card-glass question-card">
+                <p id="game-question-text" class="question-main-text">Loading chaotic school scenario pipeline...</p>
+                
+                <!-- Dynamic Input Container Slot for Multi-format items -->
+                <div id="game-options-container" class="options-layout">
+                    <!-- Script will load binary buttons, multiple choice names, or text boxes here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CONGRATULATIONS / CELEBRATION OVERLAY MODULE
+             ========================================== -->
+        <div id="celebration-overlay" class="celebration-screen hidden">
+            <div class="celebration-box animate-pop">
+                <div class="confetti-sparks">✨🎉💥</div>
+                <h2 id="celeb-headline" class="celeb-title">YOU TOO CHOKE! 👑</h2>
+                <p id="celeb-subtext" class="celeb-body">Your calculation is pristine. Your streak is glowing!</p>
+                <button id="btn-celeb-continue" class="btn-primary">CONTINUE ON STREAK 🔥</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Initialization Core Router Implementation -->
+    <script type="module">
+        // Direct root binding verification hook
+        console.log("Silhouette Hub Main Interface Engine Online.");
+    </script>
+</body>
+  </html>
+              
