@@ -312,7 +312,7 @@ function handleGameplayExpirationEvent() {
 
 /* ==========================================================================
    🛠️ INJECTION RULES & INTERFACE DATA COMPILER MATCHERS
-   ========================================================================== */
+   ========================================================================= */
 
 function generateDynamicVotingLayout() {
     const targetGender = AppState.currentQuestion.targetGender;
@@ -467,7 +467,6 @@ function renderLegacyVaultView() {
 function processAnswerSelection(chosenOutputString) {
     clearInterval(AppState.timer.instance);
 
-    // Ship data payload instantly via the backend pipe
     pipeline.logGameplayActivity({
         playerName: AppState.user.name,
         playerClass: AppState.user.class,
@@ -478,11 +477,9 @@ function processAnswerSelection(chosenOutputString) {
         timerExpired: false
     });
 
-    // Advance Score Metrics Metrics
     AppState.streak++;
     DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
 
-    // Show Hype Doppler Celebration Alert Boxes
     const victoryHeadlines = ["YOU TOO CHOKE! 👑", "ELITE VIBES! 🚀", " Pristine Calculation! 🎯", "ODOGWU ENERGY! 🦅"];
     const victoryPhrases = [
         "Your decision analysis has hit critical mass. Keep burning the streak!",
@@ -495,5 +492,5 @@ function processAnswerSelection(chosenOutputString) {
     document.getElementById('celeb-subtext').textContent = victoryPhrases[Math.floor(Math.random() * victoryPhrases.length)];
     
     DOM.celebOverlay.classList.remove('hidden');
-                }
-        
+    }
+                                  
