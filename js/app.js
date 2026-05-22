@@ -3,7 +3,7 @@
  * 🧠 APP.JS - THE CENTRAL CORE PROCESSING ROUTER & ENGINE
  * ==========================================================================
  * Connects the HTML layout views with data modules and handles state.
- * Patched with Event Delegation safety parameters to handle mobile touch.
+ * Fully optimized with dual touchstart/click event filters for flawless mobile deployment.
  */
 
 import classmatesDatabase from './classmates.js';
@@ -75,52 +75,75 @@ function switchView(targetScreenKey) {
 }
 
 function initEventListeners() {
-    // 🧬 FIXED: Gender buttons selector logic with deep element targeting for mobile
+    
+    // 🧬 HYBRID MOBILE GENDER OVERRIDE: Forces responsive toggle styling over input lags
+    const handleGenderSelection = (e, btn) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const targetBtn = btn.closest('.gender-btn');
+        if (!targetBtn) return;
+        
+        DOM.inputs.genderBtns.forEach(b => b.classList.remove('active'));
+        targetBtn.classList.add('active');
+        AppState.user.gender = targetBtn.getAttribute('data-gender');
+        
+        console.log("MOBILE GENDER SYSTEM OVERRIDE LOCKED:", AppState.user.gender);
+    };
+
     DOM.inputs.genderBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const targetBtn = e.target.closest('.gender-btn');
-            if (!targetBtn) return;
-            
-            DOM.inputs.genderBtns.forEach(b => b.classList.remove('active'));
-            targetBtn.classList.add('active');
-            AppState.user.gender = targetBtn.getAttribute('data-gender');
-            console.log("Gender selected and locked:", AppState.user.gender);
-        });
+        btn.addEventListener('touchstart', (e) => handleGenderSelection(e, btn), { passive: false });
+        btn.addEventListener('click', (e) => handleGenderSelection(e, btn));
     });
 
-    // 🔑 Login Submission Gate Click
-    DOM.btnEnter.addEventListener('click', handleGatewaySubmission);
+    // 🔑 ENTRANCE GATE SYSTEM BUTTON OVERRIDE
+    const handleGateClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleGatewaySubmission();
+    };
+    
+    DOM.btnEnter.addEventListener('touchstart', handleGateClick, { passive: false });
+    DOM.btnEnter.addEventListener('click', handleGateClick);
 
-    // Level Cards Selector Click with mobile mitigation
+    // Level Cards Selector Click
     document.querySelectorAll('.level-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            const targetCard = e.target.closest('.level-card');
+        const handleLevelSelect = (e) => {
+            e.preventDefault();
+            const targetCard = card.closest('.level-card');
             if (!targetCard) return;
             AppState.selectedLevel = parseInt(targetCard.getAttribute('data-level'));
             runTerminalVerificationSequence();
-        });
+        };
+        card.addEventListener('touchstart', handleLevelSelect, { passive: false });
+        card.addEventListener('click', handleLevelSelect);
     });
 
-    // Dashboard App Module Triggers with mobile mitigation
+    // Dashboard App Module Triggers
     DOM.modules.forEach(mod => {
-        mod.addEventListener('click', (e) => {
-            const targetMod = e.target.closest('.module-card');
+        const handleModuleSelect = (e) => {
+            e.preventDefault();
+            const targetMod = mod.closest('.module-card');
             if (!targetMod) return;
             AppState.activeModule = targetMod.getAttribute('data-module');
             launchGameplaySequence();
-        });
+        };
+        mod.addEventListener('touchstart', handleModuleSelect, { passive: false });
+        mod.addEventListener('click', handleModuleSelect);
     });
 
     // Gameplay Control Exit Buttons
-    DOM.btnExit.addEventListener('click', () => {
+    DOM.btnExit.addEventListener('click', (e) => {
+        e.preventDefault();
         clearInterval(AppState.timer.instance);
         switchView('dashboard');
     });
 
     // Celebration Continue Click Interception
-    DOM.btnCelebContinue.addEventListener('click', () => {
+    DOM.btnCelebContinue.addEventListener('click', (e) => {
+        e.preventDefault();
         DOM.celebOverlay.classList.add('hidden');
-        launchGameplaySequence(); // Instantly roll another question
+        launchGameplaySequence(); 
     });
 }
 
@@ -132,8 +155,10 @@ function handleGatewaySubmission() {
     const rawName = DOM.inputs.name.value.trim();
     const rawClass = DOM.inputs.class.value;
 
+    console.log("SUBMISSION ATTEMPT METRICS:", { name: rawName, class: rawClass, gender: AppState.user.gender });
+
     if (!rawName || !rawClass || !AppState.user.gender) {
-        alert("⚠️ CRITICAL ERROR: Please fill in all credentials to protect data mapping synchronization.");
+        alert("⚠️ CRITICAL ERROR: Please fill in your name, select your classroom, and select your gender completely to authorize network sync.");
         return;
     }
 
@@ -169,7 +194,6 @@ function runTerminalVerificationSequence() {
             currentLogIndex++;
         } else {
             clearInterval(terminalInterval);
-            // Prime profile presentation parameters
             DOM.dashWelcome.textContent = `Welcome Back, ${AppState.user.name} 🦅`;
             DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
             switchView('dashboard');
@@ -209,13 +233,11 @@ function initTickerStream() {
    ========================================================================== */
 
 function launchGameplaySequence() {
-    // Special Layout Logic Check for Module 5: Legacy Vault Form Processing
     if (AppState.activeModule === 'legacy') {
         renderLegacyVaultView();
         return;
     }
 
-    // Filter questions by active module code and targeted spice level setting
     const currentPool = gameQuestions[AppState.activeModule];
     AppState.filterDeck = currentPool.filter(q => q.level === AppState.selectedLevel);
 
@@ -225,16 +247,13 @@ function launchGameplaySequence() {
         return;
     }
 
-    // Pull random item
     AppState.currentQuestion = AppState.filterDeck[Math.floor(Math.random() * AppState.filterDeck.length)];
     
-    // Standard UI Cleanups
     DOM.roundTitle.textContent = AppState.activeModule.toUpperCase() + ` : LVL ${AppState.selectedLevel}`;
     DOM.questionText.textContent = AppState.currentQuestion.story;
     DOM.optionsContainer.className = "options-layout";
     DOM.optionsContainer.innerHTML = "";
 
-    // Render option setups dynamically according to specific game architecture rules
     if (AppState.activeModule === 'voting') {
         generateDynamicVotingLayout();
     } else if (AppState.activeModule === 'trivia') {
@@ -255,7 +274,7 @@ function resetAndLaunchPanicTimer() {
     DOM.timerBar.style.width = "100%";
     DOM.timerBar.style.backgroundColor = "var(--neon-cyan)";
 
-    const tickRate = 100; // tick down every 100ms
+    const tickRate = 100; 
     AppState.timer.instance = setInterval(() => {
         AppState.timer.timeLeft -= tickRate;
         const percentage = (AppState.timer.timeLeft / AppState.timer.duration) * 100;
@@ -275,7 +294,6 @@ function resetAndLaunchPanicTimer() {
 }
 
 function handleGameplayExpirationEvent() {
-    // Process silent telemetry submission
     pipeline.logGameplayActivity({
         playerName: AppState.user.name,
         playerClass: AppState.user.class,
@@ -288,7 +306,7 @@ function handleGameplayExpirationEvent() {
 
     AppState.streak = 0;
     DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
-    alert("💨 STREAK SMOKE! You ran out of time! Mr. Faponda wiped your calculation metrics.");
+    alert("💨 STREAK SMOKE! You ran out of time! Calculation metrics reset.");
     switchView('dashboard');
 }
 
@@ -299,36 +317,36 @@ function handleGameplayExpirationEvent() {
 function generateDynamicVotingLayout() {
     const targetGender = AppState.currentQuestion.targetGender;
     
-    // Filter profiles by gender targeting flags
     let list = classmatesDatabase;
     if (targetGender !== 'any') {
         list = classmatesDatabase.filter(c => c.gender === targetGender);
     }
 
-    // Shuffle and pick 3 unique names
     let shuffled = [...list].sort(() => 0.5 - Math.random());
     let selectedNames = shuffled.slice(0, 3);
 
     // 🔒 THE OWNER-RULE INJECTION ANCHOR
-    // Automatically intercept option positions for positive level prompts to favor Davies Demilade
     const isPositivePrompt = AppState.currentQuestion.story.includes("most") || AppState.currentQuestion.story.includes("crush");
     const daviesProfile = classmatesDatabase.find(c => c.id === 1);
 
     if (isPositivePrompt && daviesProfile && (targetGender === 'boy' || targetGender === 'any')) {
-        // Remove Davies if he's already in the slice to prevent double listings
         selectedNames = selectedNames.filter(c => c.id !== 1);
-        // Inject directly into option position Index 0
         selectedNames.unshift(daviesProfile);
-        // Trim back down to 3 if needed
         if (selectedNames.length > 3) selectedNames.pop();
     }
 
-    // Compile markup blocks
     selectedNames.forEach(student => {
         const btn = document.createElement('button');
         btn.className = "option-btn";
         btn.innerHTML = `<i class="fa-solid fa-user-tag"></i> ${student.name} <span style="color: var(--text-muted); font-size:11px; font-weight:normal;">(${student.nickname})</span>`;
-        btn.addEventListener('click', () => processAnswerSelection(student.name));
+        
+        const processClick = (e) => {
+            e.preventDefault();
+            processAnswerSelection(student.name);
+        };
+        btn.addEventListener('touchstart', processClick, { passive: false });
+        btn.addEventListener('click', processClick);
+        
         DOM.optionsContainer.appendChild(btn);
     });
 }
@@ -338,7 +356,14 @@ function generateStaticMultipleChoiceLayout() {
         const btn = document.createElement('button');
         btn.className = "option-btn";
         btn.innerHTML = `<i class="fa-solid fa-circle-dot"></i> ${opt}`;
-        btn.addEventListener('click', () => processAnswerSelection(opt));
+        
+        const processClick = (e) => {
+            e.preventDefault();
+            processAnswerSelection(opt);
+        };
+        btn.addEventListener('touchstart', processClick, { passive: false });
+        btn.addEventListener('click', processClick);
+        
         DOM.optionsContainer.appendChild(btn);
     });
 }
@@ -355,7 +380,14 @@ function generateSplitScreenBinaryLayout() {
         const btn = document.createElement('button');
         btn.className = `option-btn ${opt.class}`;
         btn.innerHTML = `<i class="fa-solid fa-code-fork"></i> ${opt.text}`;
-        btn.addEventListener('click', () => processAnswerSelection(opt.text));
+        
+        const processClick = (e) => {
+            e.preventDefault();
+            processAnswerSelection(opt.text);
+        };
+        btn.addEventListener('touchstart', processClick, { passive: false });
+        btn.addEventListener('click', processClick);
+        
         DOM.optionsContainer.appendChild(btn);
     });
 }
@@ -365,7 +397,14 @@ function generateActionVerificationLayout() {
     btn.className = "btn-primary neon-pulse-purple";
     btn.style.marginTop = "10px";
     btn.innerHTML = `I HAVE DONE IT! <i class="fa-solid fa-check-double"></i>`;
-    btn.addEventListener('click', () => processAnswerSelection("ACTION VERIFIED & COMPLETED"));
+    
+    const processClick = (e) => {
+        e.preventDefault();
+        processAnswerSelection("ACTION VERIFIED & COMPLETED");
+    };
+    btn.addEventListener('touchstart', processClick, { passive: false });
+    btn.addEventListener('click', processClick);
+    
     DOM.optionsContainer.appendChild(btn);
 }
 
@@ -397,7 +436,8 @@ function renderLegacyVaultView() {
     btnSubmit.className = "btn-primary";
     btnSubmit.textContent = "LOCK ENCRYPTED PAYLOAD";
 
-    btnSubmit.addEventListener('click', () => {
+    btnSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
         const targetVal = selectTarget.value;
         const msgVal = textNotes.value.trim();
 
@@ -406,7 +446,6 @@ function renderLegacyVaultView() {
             return;
         }
 
-        // Fire background logging telemetry pipes
         pipeline.logCrushSubmission(AppState.user.name, AppState.user.class, targetVal, msgVal);
         pipeline.logAnonymousTip(AppState.user.name, AppState.user.class, `[VAULT SUBMISSION FOR ${targetVal}]: ${msgVal}`);
 
@@ -457,4 +496,4 @@ function processAnswerSelection(chosenOutputString) {
     
     DOM.celebOverlay.classList.remove('hidden');
                 }
-                                                           
+        
