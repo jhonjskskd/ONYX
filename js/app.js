@@ -3,7 +3,7 @@
  * 🧠 APP.JS - CENTRAL CORE PROCESSING ENGINE & DEPLOYMENT ROUTER
  * ==========================================================================
  * Connects layout interfaces with dynamic logic pipelines.
- * Upgraded with structural guard-rails to prevent script termination failures.
+ * Cleaned from aggressive event-prevention loops for flawless mobile taps.
  */
 
 import classmatesDatabase from './classmates.js';
@@ -77,74 +77,59 @@ function switchView(targetScreenKey) {
 
 function initEventListeners() {
     
-    // 🧬 GENDER INTERCEPTOR OVERRIDE
-    const handleGenderSelection = (e, btn) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const targetBtn = btn.closest('.gender-btn');
-        if (!targetBtn) return;
-        
-        DOM.inputs.genderBtns.forEach(b => b.classList.remove('active'));
-        targetBtn.classList.add('active');
-        AppState.user.gender = targetBtn.getAttribute('data-gender');
-        
-        console.log("MOBILE GENDER VERIFIED & LOCKED:", AppState.user.gender);
-    };
-
+    // 🧬 CLEAN GENDER SELECTION INTERCEPTOR
     if (DOM.inputs.genderBtns && DOM.inputs.genderBtns.length > 0) {
         DOM.inputs.genderBtns.forEach(btn => {
-            btn.addEventListener('touchstart', (e) => handleGenderSelection(e, btn), { passive: false });
-            btn.addEventListener('click', (e) => handleGenderSelection(e, btn));
+            btn.addEventListener('click', (e) => {
+                const targetBtn = btn.closest('.gender-btn');
+                if (!targetBtn) return;
+                
+                // Toggle active classes
+                DOM.inputs.genderBtns.forEach(b => b.classList.remove('active'));
+                targetBtn.classList.add('active');
+                
+                // Assign value securely
+                AppState.user.gender = targetBtn.getAttribute('data-gender');
+                console.log("GENDER LOCKED:", AppState.user.gender);
+            });
         });
     }
 
-    // 🔑 ENTRANCE GATE ACCESS OVERRIDE
+    // 🔑 GATEWAY LOG IN SUBMISSION INTERCEPTOR
     if (DOM.btnEnter) {
-        const handleGateClick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        DOM.btnEnter.addEventListener('click', (e) => {
             handleGatewaySubmission();
-        };
-        DOM.btnEnter.addEventListener('touchstart', handleGateClick, { passive: false });
-        DOM.btnEnter.addEventListener('click', handleGateClick);
+        });
     }
 
     // Level Selection Cards Setup Guard
     const levelCards = document.querySelectorAll('.level-card');
     if (levelCards && levelCards.length > 0) {
         levelCards.forEach(card => {
-            const handleLevelSelect = (e) => {
-                e.preventDefault();
+            card.addEventListener('click', (e) => {
                 const targetCard = card.closest('.level-card');
                 if (!targetCard) return;
                 AppState.selectedLevel = parseInt(targetCard.getAttribute('data-level'));
                 runTerminalVerificationSequence();
-            };
-            card.addEventListener('touchstart', handleLevelSelect, { passive: false });
-            card.addEventListener('click', handleLevelSelect);
+            });
         });
     }
 
     // Dashboard Triggers Setup Guard
     if (DOM.modules && DOM.modules.length > 0) {
         DOM.modules.forEach(mod => {
-            const handleModuleSelect = (e) => {
-                e.preventDefault();
+            mod.addEventListener('click', (e) => {
                 const targetMod = mod.closest('.module-card');
                 if (!targetMod) return;
                 AppState.activeModule = targetMod.getAttribute('data-module');
                 launchGameplaySequence();
-            };
-            mod.addEventListener('touchstart', handleModuleSelect, { passive: false });
-            mod.addEventListener('click', handleModuleSelect);
+            });
         });
     }
 
     // Gameplay Control Exit Button Guard
     if (DOM.btnExit) {
         DOM.btnExit.addEventListener('click', (e) => {
-            e.preventDefault();
             clearInterval(AppState.timer.instance);
             switchView('dashboard');
         });
@@ -153,7 +138,6 @@ function initEventListeners() {
     // Celebration System Button Guard
     if (DOM.btnCelebContinue) {
         DOM.btnCelebContinue.addEventListener('click', (e) => {
-            e.preventDefault();
             if (DOM.celebOverlay) DOM.celebOverlay.classList.add('hidden');
             launchGameplaySequence(); 
         });
@@ -165,16 +149,15 @@ function initEventListeners() {
    ========================================================================== */
 
 function handleGatewaySubmission() {
-    // Structural Null Guards
     if (!DOM.inputs.name || !DOM.inputs.class) return;
 
     const rawName = DOM.inputs.name.value.trim();
     const rawClass = DOM.inputs.class.value;
 
-    console.log("GATEWAY VALIDATION METRICS:", { name: rawName, class: rawClass, gender: AppState.user.gender });
+    console.log("GATEWAY SUBMIT ATTEMPT:", { name: rawName, class: rawClass, gender: AppState.user.gender });
 
-    if (!rawName || !rawClass || !AppState.user.gender) {
-        alert("⚠️ CRITICAL ERROR: Access Denied. Make sure your name is typed out, your classroom is assigned, and your gender configuration is checked.");
+    if (!rawName || rawClass === "" || !AppState.user.gender) {
+        alert("⚠️ ACCESS DENIED: Please fill in your name, select your classroom, and tap your gender to unlock the network tunnel.");
         return;
     }
 
@@ -368,12 +351,9 @@ function generateDynamicVotingLayout() {
         btn.className = "option-btn";
         btn.innerHTML = `<i class="fa-solid fa-user-tag"></i> ${student.name} <span style="color: var(--text-muted); font-size:11px; font-weight:normal;">(${student.nickname})</span>`;
         
-        const processClick = (e) => {
-            e.preventDefault();
+        btn.addEventListener('click', (e) => {
             processAnswerSelection(student.name);
-        };
-        btn.addEventListener('touchstart', processClick, { passive: false });
-        btn.addEventListener('click', processClick);
+        });
         
         if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
@@ -385,12 +365,9 @@ function generateStaticMultipleChoiceLayout() {
         btn.className = "option-btn";
         btn.innerHTML = `<i class="fa-solid fa-circle-dot"></i> ${opt}`;
         
-        const processClick = (e) => {
-            e.preventDefault();
+        btn.addEventListener('click', (e) => {
             processAnswerSelection(opt);
-        };
-        btn.addEventListener('touchstart', processClick, { passive: false });
-        btn.addEventListener('click', processClick);
+        });
         
         if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
@@ -409,12 +386,9 @@ function generateSplitScreenBinaryLayout() {
         btn.className = `option-btn ${opt.class}`;
         btn.innerHTML = `<i class="fa-solid fa-code-fork"></i> ${opt.text}`;
         
-        const processClick = (e) => {
-            e.preventDefault();
+        btn.addEventListener('click', (e) => {
             processAnswerSelection(opt.text);
-        };
-        btn.addEventListener('touchstart', processClick, { passive: false });
-        btn.addEventListener('click', processClick);
+        });
         
         if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
@@ -426,12 +400,9 @@ function generateActionVerificationLayout() {
     btn.style.marginTop = "10px";
     btn.innerHTML = `I HAVE DONE IT! <i class="fa-solid fa-check-double"></i>`;
     
-    const processClick = (e) => {
-        e.preventDefault();
+    btn.addEventListener('click', (e) => {
         processAnswerSelection("ACTION VERIFIED & COMPLETED");
-    };
-    btn.addEventListener('touchstart', processClick, { passive: false });
-    btn.addEventListener('click', processClick);
+    });
     
     if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
 }
@@ -467,7 +438,6 @@ function renderLegacyVaultView() {
     btnSubmit.textContent = "LOCK ENCRYPTED PAYLOAD";
 
     btnSubmit.addEventListener('click', (e) => {
-        e.preventDefault();
         const targetVal = selectTarget.value;
         const msgVal = textNotes.value.trim();
 
@@ -514,4 +484,10 @@ function processAnswerSelection(chosenOutputString) {
     ];
 
     const hEl = document.getElementById('celeb-headline');
-    const pEl = document.getElementById('celeb-subtext')
+    const pEl = document.getElementById('celeb-subtext');
+    if (hEl) hEl.textContent = victoryHeadlines[Math.floor(Math.random() * victoryHeadlines.length)];
+    if (pEl) pEl.textContent = victoryPhrases[Math.floor(Math.random() * victoryPhrases.length)];
+    
+    if (DOM.celebOverlay) DOM.celebOverlay.classList.remove('hidden');
+            }
+            
