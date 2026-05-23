@@ -8,21 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* Forces absolute tap capture on mobile layers without layout interference */
-        .gender-btn, #btn-enter-vault, .level-card, .module-card, .option-btn, #btn-game-exit, #btn-celeb-continue {
-            touch-action: manipulation !important;
-            cursor: pointer !important;
-            pointer-events: auto !important;
-            -webkit-tap-highlight-color: transparent !important;
-            position: relative !important;
-            z-index: 1000 !important;
-        }
-        .hidden {
-            display: none !important;
-        }
-    </style>
 </head>
 <body>
 
@@ -34,10 +19,8 @@
             </div>
             
             <div class="logo-area">
-                <h1 class="glitch-title" style="letter-spacing: 2px;">THE SSS3 SILHOUETTE HUB</h1>
-                <p class="subtitle" style="color: var(--neon-gold); font-size: 11px; font-weight: bold; margin-top: 6px;">
-                    CLASS OF 2026 OFFICIAL VALUATION VAULT
-                </p>
+                <h1 class="glitch-title">THE SSS3 SILHOUETTE HUB</h1>
+                <p class="subtitle">CLASS OF 2026 OFFICIAL VALUATION VAULT</p>
             </div>
 
             <p class="gate-warning">
@@ -71,8 +54,8 @@
                 </div>
             </div>
 
-            <button type="button" id="btn-enter-vault" class="btn-primary" style="text-transform: uppercase;">
-                ENTER THE VAULT <i class="fa-solid fa-door-open" style="margin-left: 6px;"></i>
+            <button type="button" id="btn-enter-vault" class="btn-primary">
+                ENTER THE VAULT <i class="fa-solid fa-door-open" style="margin-left: 4px;"></i>
             </button>
         </div>
 
@@ -80,9 +63,8 @@
         <div id="screen-loading" class="game-screen card-glass hidden">
             <div class="loader-box">
                 <div class="spinner-neon"></div>
-                <h4 id="loading-status" class="text-gold" style="letter-spacing: 1px; font-weight: 800;">EXTRACTING GRADUATION FILES...</h4>
-                <div id="terminal-logs" class="terminal-logs">
-                    </div>
+                <h4 id="loading-status" class="text-gold">EXTRACTING GRADUATION FILES...</h4>
+                <div id="terminal-logs" class="terminal-logs"></div>
             </div>
         </div>
 
@@ -201,7 +183,6 @@
                 <p id="game-question-text" class="question-main-text">
                     Fetching layout parameters from questions file deck arrays...
                 </p>
-                
                 <div id="game-options-container" class="options-layout"></div>
             </div>
         </div>
@@ -220,4 +201,4 @@
     <script type="module" src="js/app.js"></script>
 </body>
                 </html>
-                        
+            
