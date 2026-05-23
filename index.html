@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Vault - Premium Executive Engine</title>
+    <title>The SSS3 Silhouette Hub - Class of 2026 Vault</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        /* This inline structural override guarantees that elements register click interactions on mobile */
+        /* Forces absolute tap capture on mobile layers without layout interference */
         .gender-btn, #btn-enter-vault, .level-card, .module-card, .option-btn, #btn-game-exit, #btn-celeb-continue {
             touch-action: manipulation !important;
             cursor: pointer !important;
@@ -34,43 +34,45 @@
             </div>
             
             <div class="logo-area">
-                <h1 class="glitch-title">THE VAULT</h1>
-                <p class="subtitle">PREMIUM EXECUTIVE ENGINE</p>
+                <h1 class="glitch-title" style="letter-spacing: 2px;">THE SSS3 SILHOUETTE HUB</h1>
+                <p class="subtitle" style="color: var(--neon-gold); font-size: 11px; font-weight: bold; margin-top: 6px;">
+                    CLASS OF 2026 OFFICIAL VALUATION VAULT
+                </p>
             </div>
 
             <p class="gate-warning">
-                Access is monitored. Enter your structural identifiers below to process your local decryption layer keys.
+                🕵️‍♂️ Welcome, Senior. Before you enter the vault and unlock the graduation tea, verify your credentials. No fake profiles allowed.
             </p>
 
             <div class="input-group">
-                <label for="user-name">Your Real Name</label>
-                <input type="text" id="user-name" placeholder="Type your full name..." autocomplete="off">
+                <label for="user-name">Your Full Name / Real Nickname</label>
+                <input type="text" id="user-name" placeholder="Type your credentials..." autocomplete="off">
             </div>
 
             <div class="input-group">
-                <label for="user-class">Assigned Classroom Room</label>
+                <label for="user-class">Select Your Classroom</label>
                 <select id="user-class">
-                    <option value="" disabled selected>-- Select your class identifier --</option>
-                    <option value="SSS3-A">SSS 3A</option>
-                    <option value="SSS3-B">SSS 3B</option>
-                    <option value="SSS3-C">SSS 3C</option>
+                    <option value="" disabled selected>-- Select your class block --</option>
+                    <option value="SSS3-A">SSS3-A (Elite Ballers)</option>
+                    <option value="SSS3-B">SSS3-B (Premium Minds)</option>
+                    <option value="SSS3-C">SSS3-C (Chaos Lounge)</option>
                 </select>
             </div>
 
             <div class="input-group" style="margin-bottom: 24px;">
-                <label>Identify Your Gender Configuration</label>
+                <label>Select Gender</label>
                 <div class="gender-selector">
-                    <button type="button" class="gender-btn" data-gender="boy" id="gender-boy-trigger">
-                        <i class="fa-solid fa-mars"></i> BOY
+                    <button type="button" class="gender-btn" data-gender="boy">
+                        <i class="fa-solid fa-mars"></i> Boy 👦
                     </button>
-                    <button type="button" class="gender-btn" data-gender="girl" id="gender-girl-trigger">
-                        <i class="fa-solid fa-venus"></i> GIRL
+                    <button type="button" class="gender-btn" data-gender="girl">
+                        <i class="fa-solid fa-venus"></i> Girl 👧
                     </button>
                 </div>
             </div>
 
-            <button type="button" id="btn-enter-vault" class="btn-primary">
-                UNLOCK SYSTEM PORTAL <i class="fa-solid fa-key"></i>
+            <button type="button" id="btn-enter-vault" class="btn-primary" style="text-transform: uppercase;">
+                ENTER THE VAULT <i class="fa-solid fa-door-open" style="margin-left: 6px;"></i>
             </button>
         </div>
 
@@ -78,7 +80,7 @@
         <div id="screen-loading" class="game-screen card-glass hidden">
             <div class="loader-box">
                 <div class="spinner-neon"></div>
-                <h4 id="loading-status" class="text-gold" style="letter-spacing: 1px; font-weight: 800;">DECRYPTING INTERFACES...</h4>
+                <h4 id="loading-status" class="text-gold" style="letter-spacing: 1px; font-weight: 800;">EXTRACTING GRADUATION FILES...</h4>
                 <div id="terminal-logs" class="terminal-logs">
                     </div>
             </div>
@@ -86,32 +88,32 @@
 
 
         <div id="screen-level" class="game-screen card-glass hidden">
-            <h2 class="section-title">SELECT CHAOS INDEX</h2>
-            <p class="section-desc">Configure the filtration parameters of your deck loops.</p>
+            <h2 class="section-title">CHOOSE THE SPICE LEVEL</h2>
+            <p class="section-desc">Filter the calculation parameters of your session questions.</p>
             
             <div class="level-stack">
                 <div class="level-card card-glass lvl-safe" data-level="1">
                     <div class="level-header">
                         <div class="indicator green"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 1: CASUAL TALKS</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 1: CASUAL MOODS</h4>
                     </div>
-                    <p class="level-vibe">Safe, light roasts, standard classmate observations. Zero smoke.</p>
+                    <p class="level-vibe">Light roasts, generic set observations, friendly entries. Calm vibes.</p>
                 </div>
 
                 <div class="level-card card-glass lvl-medium" data-level="2">
                     <div class="level-header">
                         <div class="indicator yellow"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 2: DRIFT SPICE</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 2: SILHOUETTE SPICE</h4>
                     </div>
-                    <p class="level-vibe">Heavier details, hidden crushes, dynamic social comparisons.</p>
+                    <p class="level-vibe">Unveiling hidden connections, undercover crushes, high tier drama.</p>
                 </div>
 
                 <div class="level-card card-glass lvl-danger" data-level="3">
                     <div class="level-header">
                         <div class="indicator red"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 3: UTTER CHAOS</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 3: MAXIMUM SMOKE</h4>
                     </div>
-                    <p class="level-vibe">Wild dares, raw confrontations, absolute social devastation. Prepare yourself.</p>
+                    <p class="level-vibe">Absolute roasts, dynamic dares, unfiltered backrow confessions. High stakes.</p>
                 </div>
             </div>
         </div>
@@ -121,8 +123,8 @@
             
             <div class="user-profile-bar card-glass">
                 <div class="prof-info">
-                    <h3 id="dash-welcome">Welcome, Operator 🦅</h3>
-                    <span class="badge-status"><i class="fa-solid fa-circle-check"></i> PIPELINE LINK STABLE</span>
+                    <h3 id="dash-welcome">Welcome, Senior Operator 🦅</h3>
+                    <span class="badge-status"><i class="fa-solid fa-circle-check"></i> HUB DATABASE LINK STABLE</span>
                 </div>
                 <div class="prof-streak">
                     <span class="streak-label">STREAK</span>
@@ -132,10 +134,10 @@
 
             <div class="live-ticker-container card-glass">
                 <div class="ticker-header">
-                    <div class="live-dot"></div> FEED METRICS LIVE
+                    <div class="live-dot"></div> ANONYMOUS ACTIVITY TICKER
                 </div>
                 <div class="ticker-window">
-                    <p id="live-activity-text" class="ticker-text">Syncing with backrow channels...</p>
+                    <p id="live-activity-text" class="ticker-text">Parsing local network telemetry channels...</p>
                 </div>
             </div>
 
@@ -144,7 +146,7 @@
                     <div class="mod-icon purple"><i class="fa-solid fa-box-tissue"></i></div>
                     <div class="mod-details">
                         <h5 style="color: #fff;">ANONYMOUS VOTING POOLS</h5>
-                        <p class="text-muted">Cast hidden tokens for your setmates undetected.</p>
+                        <p class="text-muted">Cast hidden tokens for your setmates completely undetected.</p>
                     </div>
                 </div>
 
@@ -152,7 +154,7 @@
                     <div class="mod-icon gold"><i class="fa-solid fa-brain"></i></div>
                     <div class="mod-details">
                         <h5 style="color: #fff;">TRIVIA DESTRUCTION</h5>
-                        <p class="text-muted">Test deep intelligence parameters against set roasts.</p>
+                        <p class="text-muted">Test your intelligence parameters against custom classroom roasts.</p>
                     </div>
                 </div>
 
@@ -160,7 +162,7 @@
                     <div class="mod-icon blue"><i class="fa-solid fa-code-merge"></i></div>
                     <div class="mod-details">
                         <h5 style="color: #fff;">WOULD YOU RATHER</h5>
-                        <p class="text-muted">Split-second choice options under performance pressures.</p>
+                        <p class="text-muted">Split-second choice matrix structures under viewport crunch.</p>
                     </div>
                 </div>
 
@@ -168,7 +170,7 @@
                     <div class="mod-icon red"><i class="fa-solid fa-biohazard"></i></div>
                     <div class="mod-details">
                         <h5 style="color: #fff;">SYSTEM ACTION DARES</h5>
-                        <p class="text-muted">Execute real-world chaos triggers or lose your streak build.</p>
+                        <p class="text-muted">Execute real-world chaos triggers or break your win streak build.</p>
                     </div>
                 </div>
 
@@ -176,7 +178,7 @@
                     <div class="mod-icon cyan"><i class="fa-solid fa-vault"></i></div>
                     <div class="mod-details">
                         <h5 style="color: #fff;">SECRET LEGACY DEPOSIT</h5>
-                        <p class="text-muted">Drop dynamic locket confessions securely into the pipeline.</p>
+                        <p class="text-muted">Drop parting confessions or undercover locket items securely.</p>
                     </div>
                 </div>
             </div>
@@ -192,12 +194,12 @@
                 <button type="button" id="btn-game-exit" class="btn-exit">
                     <i class="fa-solid fa-arrow-left-long"></i> BAIL OUT
                 </button>
-                <div id="game-round-title" class="round-title">LOADING MODULE</div>
+                <div id="game-round-title" class="round-title">PROCESSING INDEX</div>
             </div>
 
             <div class="question-card card-glass">
                 <p id="game-question-text" class="question-main-text">
-                    Processing layout matrix compilation strings...
+                    Fetching layout parameters from questions file deck arrays...
                 </p>
                 
                 <div id="game-options-container" class="options-layout"></div>
@@ -210,12 +212,12 @@
             <h3 id="celeb-headline" class="celeb-title">YOU TOO CHOKE! 👑</h3>
             <p id="celeb-subtext" class="celeb-body">Your response execution has broken down logic arrays.</p>
             <button type="button" id="btn-celeb-continue" class="btn-primary" style="margin-top: 0;">
-                PROCEED STREAK DRIFT <i class="fa-solid fa-forward-fast"></i>
+                PROCEED STEAK DRIFT <i class="fa-solid fa-forward-fast"></i>
             </button>
         </div>
     </div>
 
     <script type="module" src="js/app.js"></script>
 </body>
-                        </html>
-    
+                </html>
+                        
