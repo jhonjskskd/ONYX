@@ -47,12 +47,12 @@
                 </p>
 
                 <div class="input-group">
-                    <label for="user-name">Your Name / School Nickname ✏️</label>
-                    <input type="text" id="user-name" placeholder="Type your name here..." autocomplete="off">
+                    <label for="user-name">Your Name / School Nickname ✏ *</label>
+                    <input type="text" id="user-name" placeholder="Type your real name or known nickname..." autocomplete="off">
                 </div>
 
                 <div class="input-group">
-                    <label for="user-class">Select Your Classroom Block 🏫</label>
+                    <label for="user-class">Select Your Classroom Block 🏫 *</label>
                     <select id="user-class">
                         <option value="" disabled selected>-- Tap to select your class --</option>
                         <option value="SSS3-A">SSS3-A (Elite Ballers)</option>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="input-group" style="margin-bottom: 24px;">
-                    <label>Select Your Gender 🧑‍🤝‍🧑</label>
+                    <label>Select Your Gender 🧑‍🤝‍🧑 *</label>
                     <div class="gender-selector">
                         <button type="button" class="gender-btn" data-gender="boy">
                             <i class="fa-solid fa-mars"></i> Boy 👦
@@ -82,7 +82,7 @@
         <div id="screen-loading" class="game-screen card-glass hidden">
             <div class="loader-box">
                 <div class="spinner-neon"></div>
-                <h4 id="loading-status" class="text-gold">DECRYPTING GRADUATION FILES...</h4>
+                <h4 id="loading-status" class="text-gold">DECRYPTING SSS3 GRADUATION DATABASE...</h4>
                 <div id="terminal-logs" class="terminal-logs"></div>
             </div>
         </div>
@@ -239,6 +239,7 @@
         </div>
     </div>
 
+    <script src="players.js"></script>
     <script src="questions.js"></script>
     <script src="loader.js"></script>
     <script src="timer.js"></script>
@@ -247,4 +248,4 @@
     <script src="app.js"></script>
 </body>
     </html>
-                            
+                    
