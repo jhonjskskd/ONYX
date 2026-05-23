@@ -15,7 +15,7 @@
 
         <div id="screen-login" class="game-screen card-glass">
             <div class="security-badge">
-                <i class="fa-solid fa-shield-halved secure-icon"></i> SECURE NETWORKING TUNNEL ACTIVE
+                <i class="fa-solid fa-shield-halved secure-icon"></i> 100% PRIVACY NETWORKING ACTIVE
             </div>
             
             <div class="logo-area">
@@ -23,77 +23,97 @@
                 <p class="subtitle">CLASS OF 2026 OFFICIAL VALUATION VAULT</p>
             </div>
 
-            <p class="gate-warning">
-                🕵️‍♂️ Welcome, Senior. Before you enter the vault and unlock the graduation tea, verify your credentials. No cap allowed.
-            </p>
-
-            <div class="input-group">
-                <label for="user-name">Your Full Name / Real Nickname</label>
-                <input type="text" id="user-name" placeholder="Type your credentials..." autocomplete="off">
-            </div>
-
-            <div class="input-group">
-                <label for="user-class">Select Your Classroom</label>
-                <select id="user-class">
-                    <option value="" disabled selected>-- Select your class block --</option>
-                    <option value="SSS3-A">SSS3-A (Elite Ballers)</option>
-                    <option value="SSS3-B">SSS3-B (Premium Minds)</option>
-                    <option value="SSS3-C">SSS3-C (Chaos Lounge)</option>
-                </select>
-            </div>
-
-            <div class="input-group" style="margin-bottom: 24px;">
-                <label>Select Gender</label>
-                <div class="gender-selector">
-                    <button type="button" class="gender-btn" data-gender="boy">
-                        <i class="fa-solid fa-mars"></i> Boy 👦
-                    </button>
-                    <button type="button" class="gender-btn" data-gender="girl">
-                        <i class="fa-solid fa-venus"></i> Girl 👧
-                    </button>
+            <div id="disclaimer-panel" class="disclaimer-panel">
+                <div class="disc-header">
+                    <i class="fa-solid fa-user-secret text-gold"></i> READ THIS FIRST (IMPORTANT INFO!) 📜
                 </div>
+                <p class="disc-text">
+                    <strong>1. The Creator is Anonymous:</strong> Nobody knows who built this site. The developer is completely hidden behind encrypted code networks. It's a premium underground setup! 🕵️‍♂️
+                </p>
+                <p class="disc-text">
+                    <strong>2. Just a Game (No Insults):</strong> This platform is strictly for pure fun, laughter, and high-vibe graduation banter. No part of this app should be used to target, bully, or mock any classmate. Keep it clean! 🤝
+                </p>
+                <p class="disc-text">
+                    <strong>3. Everything is Confidential:</strong> Your data is safe. Whatever secrets, choices, or names you enter inside this vault are locked tightly and kept hidden from other students. Safe vibes only! 🔒
+                </p>
+                <button type="button" id="btn-accept-policy" class="btn-secondary">
+                    I AGREE • OPEN SYSTEM ACCESS <i class="fa-solid fa-circle-check"></i>
+                </button>
             </div>
 
-            <button type="button" id="btn-enter-vault" class="btn-primary">
-                ENTER THE VAULT <i class="fa-solid fa-door-open" style="margin-left: 4px;"></i>
-            </button>
+            <div id="login-form-inputs" class="hidden-inputs-wrapper hidden">
+                <p class="gate-warning">
+                    Clearance granted. Fill in your details below to activate your sessions. No cap allowed! 🔥
+                </p>
+
+                <div class="input-group">
+                    <label for="user-name">Your Name / School Nickname ✏️</label>
+                    <input type="text" id="user-name" placeholder="Type your name here..." autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="user-class">Select Your Classroom Block 🏫</label>
+                    <select id="user-class">
+                        <option value="" disabled selected>-- Tap to select your class --</option>
+                        <option value="SSS3-A">SSS3-A (Elite Ballers)</option>
+                        <option value="SSS3-B">SSS3-B (Premium Minds)</option>
+                        <option value="SSS3-C">SSS3-C (Chaos Lounge)</option>
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label>Select Your Gender 🧑‍🤝‍🧑</label>
+                    <div class="gender-selector">
+                        <button type="button" class="gender-btn" data-gender="boy">
+                            <i class="fa-solid fa-mars"></i> Boy 👦
+                        </button>
+                        <button type="button" class="gender-btn" data-gender="girl">
+                            <i class="fa-solid fa-venus"></i> Girl 👧
+                        </button>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-enter-vault" class="btn-primary">
+                    ENTER THE VAULT <i class="fa-solid fa-door-open" style="margin-left: 6px;"></i>
+                </button>
+            </div>
         </div>
 
         <div id="screen-loading" class="game-screen card-glass hidden">
             <div class="loader-box">
                 <div class="spinner-neon"></div>
-                <h4 id="loading-status" class="text-gold">EXTRACTING GRADUATION FILES...</h4>
+                <h4 id="loading-status" class="text-gold">DECRYPTING GRADUATION FILES...</h4>
                 <div id="terminal-logs" class="terminal-logs"></div>
             </div>
         </div>
 
         <div id="screen-level" class="game-screen card-glass hidden">
-            <h2 class="section-title">CHOOSE THE SPICE LEVEL</h2>
-            <p class="section-desc">Filter the calculation parameters of your session questions.</p>
+            <h2 class="section-title">CHOOSE THE SPICE LEVEL 🌶️</h2>
+            <p class="section-desc">Select how hot you want the game questions to be.</p>
             
             <div class="level-stack">
                 <div class="level-card card-glass lvl-safe" data-level="1">
                     <div class="level-header">
                         <div class="indicator green"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 1: CASUAL MOODS</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 1: CASUAL MOODS 🍏</h4>
                     </div>
-                    <p class="level-vibe">Light roasts, generic set observations, friendly entries. Calm vibes.</p>
+                    <p class="level-vibe">Light jokes, normal class observations, friendly profiles. Calm vibes.</p>
                 </div>
 
                 <div class="level-card card-glass lvl-medium" data-level="2">
                     <div class="level-header">
                         <div class="indicator yellow"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 2: SILHOUETTE SPICE</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 2: SILHOUETTE SPICE 🍋</h4>
                     </div>
-                    <p class="level-vibe">Unveiling hidden connections, undercover crushes, high tier drama.</p>
+                    <p class="level-vibe">Hidden classroom secrets, undercover crushes, high tier school yard drama.</p>
                 </div>
 
                 <div class="level-card card-glass lvl-danger" data-level="3">
                     <div class="level-header">
                         <div class="indicator red"></div>
-                        <h4 style="font-weight: 800; color: #fff;">LEVEL 3: MAXIMUM SMOKE</h4>
+                        <h4 style="font-weight: 800; color: #fff;">LEVEL 3: MAXIMUM SMOKE 🌶️</h4>
                     </div>
-                    <p class="level-vibe">Absolute roasts, dynamic dares, unfiltered backrow confessions. High stakes.</p>
+                    <p class="level-vibe">Absolute roasts, dynamic dares, unfiltered backrow confessions. High stakes!</p>
                 </div>
             </div>
         </div>
@@ -103,7 +123,7 @@
             <div class="user-profile-bar card-glass">
                 <div class="prof-info">
                     <h3 id="dash-welcome">Welcome, Senior Operator 🦅</h3>
-                    <span class="badge-status"><i class="fa-solid fa-circle-check"></i> HUB DATABASE LINK STABLE</span>
+                    <span class="badge-status"><i class="fa-solid fa-circle-check"></i> HUB LINK COMPILING SECURELY</span>
                 </div>
                 <div class="prof-streak">
                     <span class="streak-label">STREAK</span>
@@ -113,10 +133,10 @@
 
             <div class="live-ticker-container card-glass">
                 <div class="ticker-header">
-                    <div class="live-dot"></div> ANONYMOUS ACTIVITY TICKER
+                    <div class="live-dot"></div> LIVE VAULT ACTIVITY TICKER 📡
                 </div>
                 <div class="ticker-window">
-                    <p id="live-activity-text" class="ticker-text">Parsing local network telemetry channels...</p>
+                    <p id="live-activity-text" class="ticker-text">Syncing anonymous student telemetry channels...</p>
                 </div>
             </div>
 
@@ -124,16 +144,48 @@
                 <div class="module-card card-glass" data-module="voting">
                     <div class="mod-icon purple"><i class="fa-solid fa-box-tissue"></i></div>
                     <div class="mod-details">
-                        <h5 style="color: #fff;">ANONYMOUS VOTING POOLS</h5>
-                        <p class="text-muted">Cast hidden tokens for your setmates completely undetected.</p>
+                        <h5>ANONYMOUS VOTING POOLS 🗳️</h5>
+                        <p class="text-muted">Cast hidden tokens for your classmates completely undetected.</p>
                     </div>
                 </div>
 
                 <div class="module-card card-glass" data-module="trivia">
                     <div class="mod-icon gold"><i class="fa-solid fa-brain"></i></div>
                     <div class="mod-details">
-                        <h5 style="color: #fff;">TRIVIA DESTRUCTION</h5>
-                        <p class="text-muted">Test your intelligence parameters against custom classroom roasts.</p>
+                        <h5>TRIVIA DESTRUCTION 🧠</h5>
+                        <p class="text-muted">Test your memory parameters against signature teacher catchphrases.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass" data-module="football">
+                    <div class="mod-icon blue"><i class="fa-solid fa-soccer-ball"></i></div>
+                    <div class="mod-details">
+                        <h5>THE FOOTBALL LOUNGE ⚽</h5>
+                        <p class="text-muted">Real European club season climax arguments mixed with classroom pitch rivalries.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass" data-module="crush">
+                    <div class="mod-icon red"><i class="fa-solid fa-heart-crack"></i></div>
+                    <div class="mod-details">
+                        <h5>THE CRUSH VAULT 🤫</h5>
+                        <p class="text-muted">Encrypt and submit your target's name to unlock hidden graduation profiles.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass" data-module="wyr">
+                    <div class="mod-icon cyan"><i class="fa-solid fa-code-branch"></i></div>
+                    <div class="mod-details">
+                        <h5>WILL YOU RATHER 📊</h5>
+                        <p class="text-muted">Confront harsh classroom dilemmas or unhinged naughty smoke pipelines.</p>
+                    </div>
+                </div>
+
+                <div class="module-card card-glass" data-module="truth_dare">
+                    <div class="mod-icon green"><i class="fa-solid fa-terminal"></i></div>
+                    <div class="mod-details">
+                        <h5>TRUTH OR DARE TERMINAL 💥</h5>
+                        <p class="text-muted">Execute intense text-based dares or answer raw backrow confessions.</p>
                     </div>
                 </div>
             </div>
@@ -146,9 +198,9 @@
 
             <div class="gameplay-header">
                 <button type="button" id="btn-game-exit" class="btn-exit">
-                    <i class="fa-solid fa-arrow-left-long"></i> BAIL OUT
+                    <i class="fa-solid fa-arrow-left-long"></i> 🏃‍♂️ BAIL OUT
                 </button>
-                <div id="game-round-title" class="round-title">PROCESSING INDEX</div>
+                <div id="game-round-title" class="round-title">PROCESSING MOD</div>
             </div>
 
             <div class="question-card card-glass">
@@ -159,13 +211,30 @@
             </div>
         </div>
 
+        <div id="screen-reward" class="game-screen card-glass hidden" style="text-align: center;">
+            <div class="reward-medal">👑</div>
+            <h2 class="text-gold" style="font-size: 24px; font-weight: 900; margin-bottom: 12px;">VAULT COMPLETED!</h2>
+            <p class="gate-warning" style="border-left-color: var(--neon-gold); text-align: left;">
+                Oga! You have successfully cleared all modules of the Class of 2026 Vault and completed your sessions like an absolute boss.
+            </p>
+            <div class="reward-certificate-box">
+                <h4>OFFICIAL VAULT CLEARANCE TOKEN</h4>
+                <p class="cert-meta">SYSTEM CONFIG SECURITY PASS LEVEL: MAXIMUM ELITE</p>
+                <div class="cert-badge">🎖️ CERTIFIED CLASS BALLER</div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; padding: 0 8px;">
+                Screenshot this screen right now and drop it on your set's WhatsApp chat to prove you conquered the Silhouette Hub! 📲
+            </p>
+            <div class="reward-token-display">TOKEN-2026-CHOKE-SECURE</div>
+        </div>
+
     </div> <div id="celebration-overlay" class="celebration-screen hidden">
         <div class="celebration-box">
             <div class="confetti-sparks">🎉</div>
             <h3 id="celeb-headline" class="celeb-title">YOU TOO CHOKE! 👑</h3>
-            <p id="celeb-subtext" class="celeb-body">Your response execution has broken down logic arrays.</p>
+            <p id="celeb-subtext" class="celeb-body">Your response execution has logged successfully into the network.</p>
             <button type="button" id="btn-celeb-continue" class="btn-primary" style="margin-top: 0;">
-                PROCEED STREAK DRIFT <i class="fa-solid fa-forward-fast"></i>
+                CONTINUE DRIFT <i class="fa-solid fa-forward-fast"></i>
             </button>
         </div>
     </div>
@@ -177,5 +246,5 @@
     <script src="gameEngine.js"></script>
     <script src="app.js"></script>
 </body>
-                    </html>
-                    
+    </html>
+                            
