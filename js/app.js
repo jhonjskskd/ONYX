@@ -1,9 +1,9 @@
 /**
  * ==========================================================================
- * 🧠 APP.JS - THE CENTRAL CORE PROCESSING ROUTER & ENGINE
+ * 🧠 APP.JS - CENTRAL CORE PROCESSING ENGINE & DEPLOYMENT ROUTER
  * ==========================================================================
- * Connects the HTML layout views with data modules and handles state.
- * Fully optimized with dual touchstart/click event filters for flawless mobile deployment.
+ * Connects layout interfaces with dynamic logic pipelines.
+ * Upgraded with structural guard-rails to prevent script termination failures.
  */
 
 import classmatesDatabase from './classmates.js';
@@ -19,13 +19,13 @@ const AppState = {
     streak: 0,
     timer: {
         instance: null,
-        duration: 10000, // 10 seconds tracking interval
+        duration: 10000, 
         timeLeft: 10000
     },
     filterDeck: []
 };
 
-// --- DOM Cache Elements ---
+// --- DOM Cache Elements with Fallback Safe-guards ---
 const DOM = {
     screens: {
         login: document.getElementById('screen-login'),
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchView(targetScreenKey) {
     Object.keys(DOM.screens).forEach(key => {
+        if (!DOM.screens[key]) return; // Skip screens not yet written in HTML
         if (key === targetScreenKey) {
             DOM.screens[key].classList.remove('hidden');
         } else {
@@ -76,7 +77,7 @@ function switchView(targetScreenKey) {
 
 function initEventListeners() {
     
-    // 🧬 HYBRID MOBILE GENDER OVERRIDE: Forces responsive toggle styling over input lags
+    // 🧬 GENDER INTERCEPTOR OVERRIDE
     const handleGenderSelection = (e, btn) => {
         e.preventDefault();
         e.stopPropagation();
@@ -88,63 +89,75 @@ function initEventListeners() {
         targetBtn.classList.add('active');
         AppState.user.gender = targetBtn.getAttribute('data-gender');
         
-        console.log("MOBILE GENDER SYSTEM OVERRIDE LOCKED:", AppState.user.gender);
+        console.log("MOBILE GENDER VERIFIED & LOCKED:", AppState.user.gender);
     };
 
-    DOM.inputs.genderBtns.forEach(btn => {
-        btn.addEventListener('touchstart', (e) => handleGenderSelection(e, btn), { passive: false });
-        btn.addEventListener('click', (e) => handleGenderSelection(e, btn));
-    });
+    if (DOM.inputs.genderBtns && DOM.inputs.genderBtns.length > 0) {
+        DOM.inputs.genderBtns.forEach(btn => {
+            btn.addEventListener('touchstart', (e) => handleGenderSelection(e, btn), { passive: false });
+            btn.addEventListener('click', (e) => handleGenderSelection(e, btn));
+        });
+    }
 
-    // 🔑 ENTRANCE GATE SYSTEM BUTTON OVERRIDE
-    const handleGateClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleGatewaySubmission();
-    };
-    
-    DOM.btnEnter.addEventListener('touchstart', handleGateClick, { passive: false });
-    DOM.btnEnter.addEventListener('click', handleGateClick);
-
-    // Level Cards Selector Click
-    document.querySelectorAll('.level-card').forEach(card => {
-        const handleLevelSelect = (e) => {
+    // 🔑 ENTRANCE GATE ACCESS OVERRIDE
+    if (DOM.btnEnter) {
+        const handleGateClick = (e) => {
             e.preventDefault();
-            const targetCard = card.closest('.level-card');
-            if (!targetCard) return;
-            AppState.selectedLevel = parseInt(targetCard.getAttribute('data-level'));
-            runTerminalVerificationSequence();
+            e.stopPropagation();
+            handleGatewaySubmission();
         };
-        card.addEventListener('touchstart', handleLevelSelect, { passive: false });
-        card.addEventListener('click', handleLevelSelect);
-    });
+        DOM.btnEnter.addEventListener('touchstart', handleGateClick, { passive: false });
+        DOM.btnEnter.addEventListener('click', handleGateClick);
+    }
 
-    // Dashboard App Module Triggers
-    DOM.modules.forEach(mod => {
-        const handleModuleSelect = (e) => {
+    // Level Selection Cards Setup Guard
+    const levelCards = document.querySelectorAll('.level-card');
+    if (levelCards && levelCards.length > 0) {
+        levelCards.forEach(card => {
+            const handleLevelSelect = (e) => {
+                e.preventDefault();
+                const targetCard = card.closest('.level-card');
+                if (!targetCard) return;
+                AppState.selectedLevel = parseInt(targetCard.getAttribute('data-level'));
+                runTerminalVerificationSequence();
+            };
+            card.addEventListener('touchstart', handleLevelSelect, { passive: false });
+            card.addEventListener('click', handleLevelSelect);
+        });
+    }
+
+    // Dashboard Triggers Setup Guard
+    if (DOM.modules && DOM.modules.length > 0) {
+        DOM.modules.forEach(mod => {
+            const handleModuleSelect = (e) => {
+                e.preventDefault();
+                const targetMod = mod.closest('.module-card');
+                if (!targetMod) return;
+                AppState.activeModule = targetMod.getAttribute('data-module');
+                launchGameplaySequence();
+            };
+            mod.addEventListener('touchstart', handleModuleSelect, { passive: false });
+            mod.addEventListener('click', handleModuleSelect);
+        });
+    }
+
+    // Gameplay Control Exit Button Guard
+    if (DOM.btnExit) {
+        DOM.btnExit.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetMod = mod.closest('.module-card');
-            if (!targetMod) return;
-            AppState.activeModule = targetMod.getAttribute('data-module');
-            launchGameplaySequence();
-        };
-        mod.addEventListener('touchstart', handleModuleSelect, { passive: false });
-        mod.addEventListener('click', handleModuleSelect);
-    });
+            clearInterval(AppState.timer.instance);
+            switchView('dashboard');
+        });
+    }
 
-    // Gameplay Control Exit Buttons
-    DOM.btnExit.addEventListener('click', (e) => {
-        e.preventDefault();
-        clearInterval(AppState.timer.instance);
-        switchView('dashboard');
-    });
-
-    // Celebration Continue Click Interception
-    DOM.btnCelebContinue.addEventListener('click', (e) => {
-        e.preventDefault();
-        DOM.celebOverlay.classList.add('hidden');
-        launchGameplaySequence(); 
-    });
+    // Celebration System Button Guard
+    if (DOM.btnCelebContinue) {
+        DOM.btnCelebContinue.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (DOM.celebOverlay) DOM.celebOverlay.classList.add('hidden');
+            launchGameplaySequence(); 
+        });
+    }
 }
 
 /* ==========================================================================
@@ -152,23 +165,25 @@ function initEventListeners() {
    ========================================================================== */
 
 function handleGatewaySubmission() {
+    // Structural Null Guards
+    if (!DOM.inputs.name || !DOM.inputs.class) return;
+
     const rawName = DOM.inputs.name.value.trim();
     const rawClass = DOM.inputs.class.value;
 
-    console.log("SUBMISSION ATTEMPT METRICS:", { name: rawName, class: rawClass, gender: AppState.user.gender });
+    console.log("GATEWAY VALIDATION METRICS:", { name: rawName, class: rawClass, gender: AppState.user.gender });
 
     if (!rawName || !rawClass || !AppState.user.gender) {
-        alert("⚠️ CRITICAL ERROR: Please fill in your name, select your classroom, and select your gender completely to authorize network sync.");
+        alert("⚠️ CRITICAL ERROR: Access Denied. Make sure your name is typed out, your classroom is assigned, and your gender configuration is checked.");
         return;
     }
 
     AppState.user.name = rawName;
     AppState.user.class = rawClass;
 
-    // Background pipeline fire
+    // Fire pipeline logs background payload
     pipeline.logUserAccess(AppState.user);
     
-    // Move to Spice level selection matrix
     switchView('level');
 }
 
@@ -184,18 +199,20 @@ function runTerminalVerificationSequence() {
     ];
 
     let currentLogIndex = 0;
-    DOM.terminalLogs.innerHTML = "";
+    if (DOM.terminalLogs) DOM.terminalLogs.innerHTML = "";
 
     const terminalInterval = setInterval(() => {
         if (currentLogIndex < logs.length) {
-            const p = document.createElement('p');
-            p.textContent = logs[currentLogIndex];
-            DOM.terminalLogs.appendChild(p);
+            if (DOM.terminalLogs) {
+                const p = document.createElement('p');
+                p.textContent = logs[currentLogIndex];
+                DOM.terminalLogs.appendChild(p);
+            }
             currentLogIndex++;
         } else {
             clearInterval(terminalInterval);
-            DOM.dashWelcome.textContent = `Welcome Back, ${AppState.user.name} 🦅`;
-            DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
+            if (DOM.dashWelcome) DOM.dashWelcome.textContent = `Welcome Back, ${AppState.user.name} 🦅`;
+            if (DOM.dashStreak) DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
             switchView('dashboard');
         }
     }, 600);
@@ -217,14 +234,16 @@ function initTickerStream() {
     ];
 
     setInterval(() => {
-        if (DOM.screens.dashboard.classList.contains('hidden')) return;
+        if (!DOM.screens.dashboard || DOM.screens.dashboard.classList.contains('hidden')) return;
         const randomActivity = activityPool[Math.floor(Math.random() * activityPool.length)];
         
-        DOM.tickerText.style.opacity = '0';
-        setTimeout(() => {
-            DOM.tickerText.textContent = randomActivity;
-            DOM.tickerText.style.opacity = '1';
-        }, 300);
+        if (DOM.tickerText) {
+            DOM.tickerText.style.opacity = '0';
+            setTimeout(() => {
+                DOM.tickerText.textContent = randomActivity;
+                DOM.tickerText.style.opacity = '1';
+            }, 300);
+        }
     }, 5000);
 }
 
@@ -239,6 +258,8 @@ function launchGameplaySequence() {
     }
 
     const currentPool = gameQuestions[AppState.activeModule];
+    if (!currentPool) return;
+    
     AppState.filterDeck = currentPool.filter(q => q.level === AppState.selectedLevel);
 
     if (AppState.filterDeck.length === 0) {
@@ -249,19 +270,22 @@ function launchGameplaySequence() {
 
     AppState.currentQuestion = AppState.filterDeck[Math.floor(Math.random() * AppState.filterDeck.length)];
     
-    DOM.roundTitle.textContent = AppState.activeModule.toUpperCase() + ` : LVL ${AppState.selectedLevel}`;
-    DOM.questionText.textContent = AppState.currentQuestion.story;
-    DOM.optionsContainer.className = "options-layout";
-    DOM.optionsContainer.innerHTML = "";
+    if (DOM.roundTitle) DOM.roundTitle.textContent = AppState.activeModule.toUpperCase() + ` : LVL ${AppState.selectedLevel}`;
+    if (DOM.questionText) DOM.questionText.textContent = AppState.currentQuestion.story;
+    
+    if (DOM.optionsContainer) {
+        DOM.optionsContainer.className = "options-layout";
+        DOM.optionsContainer.innerHTML = "";
 
-    if (AppState.activeModule === 'voting') {
-        generateDynamicVotingLayout();
-    } else if (AppState.activeModule === 'trivia') {
-        generateStaticMultipleChoiceLayout();
-    } else if (AppState.activeModule === 'wyr') {
-        generateSplitScreenBinaryLayout();
-    } else if (AppState.activeModule === 'dare') {
-        generateActionVerificationLayout();
+        if (AppState.activeModule === 'voting') {
+            generateDynamicVotingLayout();
+        } else if (AppState.activeModule === 'trivia') {
+            generateStaticMultipleChoiceLayout();
+        } else if (AppState.activeModule === 'wyr') {
+            generateSplitScreenBinaryLayout();
+        } else if (AppState.activeModule === 'dare') {
+            generateActionVerificationLayout();
+        }
     }
 
     switchView('gameplay');
@@ -271,19 +295,24 @@ function launchGameplaySequence() {
 function resetAndLaunchPanicTimer() {
     clearInterval(AppState.timer.instance);
     AppState.timer.timeLeft = AppState.timer.duration;
-    DOM.timerBar.style.width = "100%";
-    DOM.timerBar.style.backgroundColor = "var(--neon-cyan)";
+    
+    if (DOM.timerBar) {
+        DOM.timerBar.style.width = "100%";
+        DOM.timerBar.style.backgroundColor = "var(--neon-cyan)";
+    }
 
     const tickRate = 100; 
     AppState.timer.instance = setInterval(() => {
         AppState.timer.timeLeft -= tickRate;
         const percentage = (AppState.timer.timeLeft / AppState.timer.duration) * 100;
-        DOM.timerBar.style.width = `${percentage}%`;
-
-        if (percentage < 35) {
-            DOM.timerBar.style.backgroundColor = "var(--neon-red)";
-        } else if (percentage < 65) {
-            DOM.timerBar.style.backgroundColor = "var(--neon-gold)";
+        
+        if (DOM.timerBar) {
+            DOM.timerBar.style.width = `${percentage}%`;
+            if (percentage < 35) {
+                DOM.timerBar.style.backgroundColor = "var(--neon-red)";
+            } else if (percentage < 65) {
+                DOM.timerBar.style.backgroundColor = "var(--neon-gold)";
+            }
         }
 
         if (AppState.timer.timeLeft <= 0) {
@@ -305,14 +334,14 @@ function handleGameplayExpirationEvent() {
     });
 
     AppState.streak = 0;
-    DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
+    if (DOM.dashStreak) DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
     alert("💨 STREAK SMOKE! You ran out of time! Calculation metrics reset.");
     switchView('dashboard');
 }
 
 /* ==========================================================================
    🛠️ INJECTION RULES & INTERFACE DATA COMPILER MATCHERS
-   ========================================================================= */
+   ========================================================================== */
 
 function generateDynamicVotingLayout() {
     const targetGender = AppState.currentQuestion.targetGender;
@@ -325,7 +354,6 @@ function generateDynamicVotingLayout() {
     let shuffled = [...list].sort(() => 0.5 - Math.random());
     let selectedNames = shuffled.slice(0, 3);
 
-    // 🔒 THE OWNER-RULE INJECTION ANCHOR
     const isPositivePrompt = AppState.currentQuestion.story.includes("most") || AppState.currentQuestion.story.includes("crush");
     const daviesProfile = classmatesDatabase.find(c => c.id === 1);
 
@@ -347,7 +375,7 @@ function generateDynamicVotingLayout() {
         btn.addEventListener('touchstart', processClick, { passive: false });
         btn.addEventListener('click', processClick);
         
-        DOM.optionsContainer.appendChild(btn);
+        if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
 }
 
@@ -364,12 +392,12 @@ function generateStaticMultipleChoiceLayout() {
         btn.addEventListener('touchstart', processClick, { passive: false });
         btn.addEventListener('click', processClick);
         
-        DOM.optionsContainer.appendChild(btn);
+        if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
 }
 
 function generateSplitScreenBinaryLayout() {
-    DOM.optionsContainer.classList.add('split-binary');
+    if (DOM.optionsContainer) DOM.optionsContainer.classList.add('split-binary');
     
     const opts = [
         { text: AppState.currentQuestion.optionA, class: 'binary-a' },
@@ -388,7 +416,7 @@ function generateSplitScreenBinaryLayout() {
         btn.addEventListener('touchstart', processClick, { passive: false });
         btn.addEventListener('click', processClick);
         
-        DOM.optionsContainer.appendChild(btn);
+        if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
     });
 }
 
@@ -405,12 +433,14 @@ function generateActionVerificationLayout() {
     btn.addEventListener('touchstart', processClick, { passive: false });
     btn.addEventListener('click', processClick);
     
-    DOM.optionsContainer.appendChild(btn);
+    if (DOM.optionsContainer) DOM.optionsContainer.appendChild(btn);
 }
 
 function renderLegacyVaultView() {
+    if (!DOM.optionsContainer || !DOM.roundTitle || !DOM.questionText) return;
+
     DOM.roundTitle.textContent = "SECRET LEGACY DEPOSIT";
-    DOM.questionText.textContent = "Drop your parting deep confessions or secret crush lockets securely. All entries are protected by AES-256 layer theater overlays.";
+    DOM.questionText.textContent = "Drop your parting deep confessions or secret crush lockets securely.";
     DOM.optionsContainer.innerHTML = "";
 
     const formWrapper = document.createElement('div');
@@ -430,7 +460,7 @@ function renderLegacyVaultView() {
 
     const textNotes = document.createElement('textarea');
     textNotes.className = "legacy-textarea";
-    textNotes.placeholder = "Write your anonymous gossip, parting note, or secret valuation tea completely undetected here...";
+    textNotes.placeholder = "Write your anonymous gossip completely undetected here...";
 
     const btnSubmit = document.createElement('button');
     btnSubmit.className = "btn-primary";
@@ -460,10 +490,6 @@ function renderLegacyVaultView() {
     switchView('gameplay');
 }
 
-/* ==========================================================================
-   🏆 CELEBRATIONS & SCORE METRICS COMPUTERS
-   ========================================================================== */
-
 function processAnswerSelection(chosenOutputString) {
     clearInterval(AppState.timer.instance);
 
@@ -478,19 +504,14 @@ function processAnswerSelection(chosenOutputString) {
     });
 
     AppState.streak++;
-    DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
+    if (DOM.dashStreak) DOM.dashStreak.textContent = `🔥 ${AppState.streak}`;
 
-    const victoryHeadlines = ["YOU TOO CHOKE! 👑", "ELITE VIBES! 🚀", " Pristine Calculation! 🎯", "ODOGWU ENERGY! 🦅"];
+    const victoryHeadlines = ["YOU TOO CHOKE! 👑", "ELITE VIBES! 🚀", "ODOGWU ENERGY! 🦅"];
     const victoryPhrases = [
         "Your decision analysis has hit critical mass. Keep burning the streak!",
         "Perfect response execution. The back row is currently cheering your accuracy.",
-        "Your selection was routed securely. The simulation network density expands!",
         "Zero mistakes found. Keep the pressure mounted on the leaderboard matrix."
     ];
 
-    document.getElementById('celeb-headline').textContent = victoryHeadlines[Math.floor(Math.random() * victoryHeadlines.length)];
-    document.getElementById('celeb-subtext').textContent = victoryPhrases[Math.floor(Math.random() * victoryPhrases.length)];
-    
-    DOM.celebOverlay.classList.remove('hidden');
-    }
-                                  
+    const hEl = document.getElementById('celeb-headline');
+    const pEl = document.getElementById('celeb-subtext')
